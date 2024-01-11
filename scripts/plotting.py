@@ -32,7 +32,7 @@ def plot_value_per_year_GER_HIC_GLO(df: pd.DataFrame, ax: plt.axes = None, y_axi
     # Plotting lines
     FOREGROUND_LINEWIDTH = 5
     BACKGROUND_LINEWIDTH = 1
-    BACKGROUND_ALPHA = 0.25
+    BACKGROUND_ALPHA = 0.3
     for region in df['Country Name'].unique():
         curr_df = df[df["Country Name"] == region]
         if region == 'Germany':
@@ -42,19 +42,20 @@ def plot_value_per_year_GER_HIC_GLO(df: pd.DataFrame, ax: plt.axes = None, y_axi
         elif region == 'High-income':
             ax.plot(curr_df[YEAR_COLUMN_NAME], curr_df[VALUE_COLUMN_NAME], label=region, color='green', linewidth=FOREGROUND_LINEWIDTH)
         else:
-            ax.plot(curr_df[YEAR_COLUMN_NAME], curr_df[VALUE_COLUMN_NAME], linewidth=BACKGROUND_LINEWIDTH, alpha=BACKGROUND_ALPHA)
+            ax.plot(curr_df[YEAR_COLUMN_NAME], curr_df[VALUE_COLUMN_NAME], color="gray", linewidth=BACKGROUND_LINEWIDTH, alpha=BACKGROUND_ALPHA)
 
     # Setting labels and titles
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
     ax.set_title(title)
-    labels = ['Global', 'High income', 'Germany']
+    labels = ['Global', 'High income', 'Germany', "All countries"]
     handles = [plt.Line2D([], [], color='blue', linewidth=FOREGROUND_LINEWIDTH),
             plt.Line2D([], [], color='green', linewidth=FOREGROUND_LINEWIDTH),
-            plt.Line2D([], [], color='red', linewidth=FOREGROUND_LINEWIDTH)]
+            plt.Line2D([], [], color='red', linewidth=FOREGROUND_LINEWIDTH),
+            plt.Line2D([], [], color='gray', linewidth=BACKGROUND_LINEWIDTH)]
     
     # Add the legend with 3 columns and 1 row
-    plt.legend(handles, labels, bbox_to_anchor=(0.5, -0.12), loc='upper center', ncol=3)
+    plt.legend(handles, labels, bbox_to_anchor=(0.5, -0.12), loc='upper center', ncol=4)
 
     # Remove the border (spines) (GGPLOT was overridden)
     ax.spines['top'].set_visible(False)
