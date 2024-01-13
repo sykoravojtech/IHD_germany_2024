@@ -12,8 +12,11 @@
 - Missing data was removed
 - Columns: Country Name,Country Code,Series Name,Year,Value
 
-## data2.csv
-- raw/daily_per_capita_fat_supply.csv
+## daily_per_capita_fat_supply.csv
 - Gives information about daily fat consumption per capita
 - Region-level data was removed
 - Columns: Country Name,Country Code,Series Name,Year,Value
+
+## share-of-adults-who-smoke.csv
+- nothing changed
+- original description in raw_description.md
