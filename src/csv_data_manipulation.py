@@ -2,8 +2,6 @@
 csv_data_manipulaltion.py
 
 This file has general functions for manipulaiting data in csv files like melting columns into one.
-
-Vojtech Sykora, January 2024
 """
 
 import pandas as pd
@@ -16,11 +14,11 @@ def melt_all_year_cols_into_one(input_file: str = None, df: pd.DataFrame = None,
                                 ) -> pd.DataFrame:
     """
     Some datasets have one column for each year of data.
-    This function changes the dataset so that there is one year column and one data column instead of columns for yeach year.
+    This function changes the dataset so that there is one year column and one data column instead of columns for each year.
 
     Args:
-        input_file: 
-        output_file: 
+        input_file: if no dataframe is given, the function will load the dataframe from this file
+        output_file: if given, saves the dataframe to this file
         df: dataframe
         replace_dots: True if want to replace '..' with zero
         remove_nan: removes all rows with NaN in Value column 
@@ -30,6 +28,7 @@ def melt_all_year_cols_into_one(input_file: str = None, df: pd.DataFrame = None,
     Returns:
         The melted dataset 
     """
+    
     if not df:
         if not input_file:
             print("No input file or dataframe given")

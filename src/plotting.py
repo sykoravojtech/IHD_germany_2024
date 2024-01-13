@@ -1,15 +1,35 @@
+"""
+plotting.py
+
+This file has general functions for plotting data used in the project.
+"""
+
 import pandas as pd
 import matplotlib.pyplot as plt
 
-def plot_value_per_year_GER_HIC_GLO(df: pd.DataFrame, ax: plt.axes = None, y_axis: str = "Value", 
-                                    x_axis: str = "Year", xticks: int = None, output_fig_path: str = None,
+
+def plot_value_per_year_GER_HIC_GLO(df: pd.DataFrame, ax: plt.axes = None, value_column: str = "Value", year_column: str = "Year", 
+                                    country_column: str = "Country Name", xticks: int = None, output_fig_path: str = None,
                                     xlabel: str = "xlabel", ylabel: str = "ylabel", title: str = "title"
                                     ) -> None:
+    """ 
+    Plots the value of a column per year, with Germany, High-income countries and Global values highlighted.
+    
+    Args:
+        df: dataframe, must have columns for value, year and country
+        ax: axes to plot on, if None, creates a new figure
+        value_column: column containing the values to plot
+        year_column: column with years
+        country_column: column with countries
+        xticks: step size for year ticks, if None, ticks are not set
+        output_fig_path: if given, saves the figure to this path
+        xlabel: xlabel
+        ylabel: ylabel
+        title: title
+    
+    Returns:
+        None
     """
-    Plots the Value column on y-axis and Year column on x-axis
-    """
-    VALUE_COLUMN_NAME = "Value"
-    YEAR_COLUMN_NAME = "Year"
 
     if ax is None:
         _, ax = plt.subplots(figsize=(10, 6))
@@ -24,8 +44,8 @@ def plot_value_per_year_GER_HIC_GLO(df: pd.DataFrame, ax: plt.axes = None, y_axi
     if xticks is not None:
         # Set the x-axis ticks to show every 'xticks' years
         # Assuming 'Year' is an integer type column in df
-        start_year = int(df[YEAR_COLUMN_NAME].min())  # Find the minimum year in the dataset
-        end_year = int(df[YEAR_COLUMN_NAME].max())    # Find the maximum year in the dataset
+        start_year = int(df[year_column].min())  # Find the minimum year in the dataset
+        end_year = int(df[year_column].max())    # Find the maximum year in the dataset
         # print(f"{start_year=} {end_year=}")
         ax.set_xticks(range(start_year, end_year + 1, xticks))  # Set xticks to every 'xticks' years
 
@@ -33,16 +53,16 @@ def plot_value_per_year_GER_HIC_GLO(df: pd.DataFrame, ax: plt.axes = None, y_axi
     FOREGROUND_LINEWIDTH = 5
     BACKGROUND_LINEWIDTH = 1
     BACKGROUND_ALPHA = 0.3
-    for region in df['Country Name'].unique():
-        curr_df = df[df["Country Name"] == region]
+    for region in df[country_column].unique():
+        curr_df = df[df[country_column] == region]
         if region == 'Germany':
-            ax.plot(curr_df[YEAR_COLUMN_NAME], curr_df[VALUE_COLUMN_NAME], label=region, color='red', linewidth=FOREGROUND_LINEWIDTH)
+            ax.plot(curr_df[year_column], curr_df[value_column], label=region, color='red', linewidth=FOREGROUND_LINEWIDTH)
         elif region == 'Global':
-            ax.plot(curr_df[YEAR_COLUMN_NAME], curr_df[VALUE_COLUMN_NAME], label=region, color='blue', linewidth=FOREGROUND_LINEWIDTH)
+            ax.plot(curr_df[year_column], curr_df[value_column], label=region, color='blue', linewidth=FOREGROUND_LINEWIDTH)
         elif region == 'High-income':
-            ax.plot(curr_df[YEAR_COLUMN_NAME], curr_df[VALUE_COLUMN_NAME], label=region, color='green', linewidth=FOREGROUND_LINEWIDTH)
+            ax.plot(curr_df[year_column], curr_df[value_column], label=region, color='green', linewidth=FOREGROUND_LINEWIDTH)
         else:
-            ax.plot(curr_df[YEAR_COLUMN_NAME], curr_df[VALUE_COLUMN_NAME], color="gray", linewidth=BACKGROUND_LINEWIDTH, alpha=BACKGROUND_ALPHA)
+            ax.plot(curr_df[year_column], curr_df[value_column], color="gray", linewidth=BACKGROUND_LINEWIDTH, alpha=BACKGROUND_ALPHA)
 
     # Setting labels and titles
     ax.set_xlabel(xlabel)
