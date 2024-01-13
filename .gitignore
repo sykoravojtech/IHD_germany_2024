@@ -162,3 +162,5 @@ cython_debug/
 # VS Code csv table preview
 *.csv.schema.json
 *.csv.table.json
+
+*.DS_Store
