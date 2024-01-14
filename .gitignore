@@ -164,3 +164,11 @@ cython_debug/
 *.csv.table.json
 
 *.DS_Store
+
+doc/IHD_germany_2024/*.aux
+doc/IHD_germany_2024/*.fdb_latexmk
+doc/IHD_germany_2024/*.fls
+doc/IHD_germany_2024/*.out
+doc/IHD_germany_2024/*.synctex.gz
+doc/IHD_germany_2024/*.bbl
+doc/IHD_germany_2024/*.blg
