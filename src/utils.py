@@ -24,6 +24,7 @@ def generate_high_income_global_avg_index(df: pd.DataFrame, country_name_col: st
     Returns:
         DataFrame with all averages added.
     """
+    
     is_high_income = df[country_name_col].isin(highincome_countries)
     df_highincome = df[is_high_income].groupby('Year')[value_col].mean().reset_index()
     if add_series_name:
