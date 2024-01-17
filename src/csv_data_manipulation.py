@@ -94,7 +94,7 @@ def process_fat_consumption_data(input_file, output_file='data/final/daily_per_c
 
     if output_file:
         df.to_csv(output_file, index=False)
-        print(f"DataFrame saved to {output_file}")
+        
 
     return df
 
@@ -118,4 +118,6 @@ def process_IschemicHeartDisease_data(input_file: str = "data/raw/gbd_ischemiche
     df.rename(columns={'val': 'Value'}, inplace=True)
     if output_file:
         df.to_csv(output_file, index=False)
+        print(f"DataFrame saved to {output_file}")
+        
     return df

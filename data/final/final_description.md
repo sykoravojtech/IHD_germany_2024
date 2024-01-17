@@ -20,3 +20,8 @@
 ## share-of-adults-who-smoke.csv
 - nothing changed
 - original description in raw_description.md
+
+## gbd_cardiovascularglobal.csv
+- Downloaded from the Global Burden of Disease website
+- Gives information about incidence and death number, percent and rate for all countries 1990-2019
+- Columns: measure_id, measure_name, location_id, location_name, sex_id, sex_name, age_id, age_name, cause_id, cause_name, metric_id, metric_name, year, val, upper, lower
