@@ -75,9 +75,9 @@ def plot_value_per_year_GER_HIC_GLO(df: pd.DataFrame, ax: plt.axes = None, value
     
     if legend:
         labels = ['Global', 'High income', 'Germany', "All countries"]
-        handles = [plt.Line2D([], [], color='blue', linewidth=FOREGROUND_LINEWIDTH),
-                plt.Line2D([], [], color='green', linewidth=FOREGROUND_LINEWIDTH),
-                plt.Line2D([], [], color='red', linewidth=FOREGROUND_LINEWIDTH)]
+        handles = [plt.Line2D([], [], color=rgb.tue_blue, linewidth=FOREGROUND_LINEWIDTH),
+                plt.Line2D([], [], color=rgb.tue_orange, linewidth=FOREGROUND_LINEWIDTH),
+                plt.Line2D([], [], color=rgb.tue_red, linewidth=FOREGROUND_LINEWIDTH)]
                 # plt.Line2D([], [], color='gray', linewidth=BACKGROUND_LINEWIDTH)]
         
         # Add the legend with 4 columns and 1 row
