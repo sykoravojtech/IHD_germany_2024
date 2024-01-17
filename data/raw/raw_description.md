@@ -34,3 +34,12 @@
   - Code: Country Code
   - Year
   - Prevalence of current tobacco use (% of adults)
+
+## alcohol_germany.csv
+- https://data.oecd.org/healthrisk/alcohol-consumption.htm
+- Definition of Alcohol consumption
+  - Alcohol consumption is defined as annual sales of pure alcohol in litres per person aged 15 years and older. Alcohol use is associated with numerous harmful health and social consequences, including an increased risk of a range of cancers, stroke and liver cirrhosis. Alcohol also contributes to death and disability through accidents and injuries, assault, violence, homicide and suicide. This indicator is measured in litres per capita (people aged 15 years and older).
+
+## smoking_germany.csv
+- https://data.oecd.org/healthrisk/daily-smokers.htm
+- Daily smokers are defined as the population aged 15 years and over who are reporting to smoke every day. Smoking is a major risk factor for at least two of the leading causes of premature mortality - circulatory disease and cancer, increasing the risk of heart attack, stroke, lung cancer, and cancers of the larynx and mouth. In addition, smoking is an important contributing factor for respiratory diseases. This indicator is presented as a total and per gender and is measured as a percentage of the population considered (total, men or women) aged 15 years and over.
