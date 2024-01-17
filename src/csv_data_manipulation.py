@@ -75,6 +75,16 @@ def melt_all_year_cols_into_one(input_file: str = None, df: pd.DataFrame = None,
     return melted_df
 
 def process_fat_consumption_data(input_file, output_file='data/final/daily_per_capita_fat_supply_final.csv'):
+    """
+    Process global dat consumption data
+
+    Args:
+        input_file: 
+        output_file: 
+
+    Returns:
+        final dataframe
+    """
     df = pd.read_csv(input_file)
 
     df.columns = ['Country Name', 'Country Code', 'Year' ,'Value']
@@ -86,4 +96,26 @@ def process_fat_consumption_data(input_file, output_file='data/final/daily_per_c
         df.to_csv(output_file, index=False)
         print(f"DataFrame saved to {output_file}")
 
+    return df
+
+
+def process_IschemicHeartDisease_data(input_file: str = "data/raw/gbd_ischemicheartdiseaseglobal.csv", 
+                            output_file: str = "data/final/gbd_IschemicHeartDisease_DeathsIncidence.csv"
+                            ) -> pd.DataFrame:
+    """
+    Process global Ischemic Heart Disease data
+
+    Args:
+        input_file: 
+        output_file: 
+
+    Returns:
+        final dataframe
+    """
+    df = pd.read_csv(input_file)
+    df = df[df['age_name']=="All ages"].copy()
+    df.drop(columns=['measure_id', 'location_id', 'sex_id', 'sex_name', 'metric_id', 'metric_name', 'age_id', 'age_name', 'cause_id'], inplace=True)
+    df.rename(columns={'val': 'Value'}, inplace=True)
+    if output_file:
+        df.to_csv(output_file, index=False)
     return df
