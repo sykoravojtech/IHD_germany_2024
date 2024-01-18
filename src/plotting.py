@@ -122,14 +122,14 @@ def plot_comparison_GER_HIC_GLO(df: pd.DataFrame, value_column: str = "Value", y
     
     plt.rcParams.update(bundles.icml2022(column="full", ncols=2, nrows=1))
     
-    fig, ax = plt.subplots(1, 3)
+    fig, ax = plt.subplots(1, 2)
 
     plot_value_per_year_GER_HIC_GLO(df[df[indicator_column] == indicator1], ax=ax[0], value_column=value_column, 
                                     year_column=year_column, country_column=country_column, xticks=xticks, xlabel=xlabel,
                                     ylabel=ylabel, title=title + ", " + indicator1, legend=False)
-    plot_value_per_year_GER_HIC_GLO(df[df[indicator_column] == indicator2], ax=ax[1], value_column=value_column,
-                                    year_column=year_column, country_column=country_column, xticks=xticks,
-                                    xlabel=xlabel, title=title + ", " + indicator2, legend=False)
+    # plot_value_per_year_GER_HIC_GLO(df[df[indicator_column] == indicator2], ax=ax[1], value_column=value_column,
+    #                                 year_column=year_column, country_column=country_column, xticks=xticks,
+    #                                 xlabel=xlabel, title=title + ", " + indicator2, legend=False)
     
     # Step 1: Split the DataFrame into two DataFrames, one for each indicator
     deaths_df = df[df[indicator_column] == indicator2].rename(columns={value_column: value_column+"_1"})
@@ -146,7 +146,7 @@ def plot_comparison_GER_HIC_GLO(df: pd.DataFrame, value_column: str = "Value", y
     ratio_df = merged_df[[indicator_column_x, year_column, country_column, value_column]].copy()
     ratio_df[indicator_column_x] = 'Ratio'
     
-    plot_value_per_year_GER_HIC_GLO(ratio_df, ax=ax[2], value_column=value_column, year_column=year_column, country_column=country_column,
+    plot_value_per_year_GER_HIC_GLO(ratio_df, ax=ax[1], value_column=value_column, year_column=year_column, country_column=country_column,
                                     xticks=xticks, xlabel=xlabel,
                                     title=title + " " + indicator2 + " / " + indicator1, legend=False)
 
