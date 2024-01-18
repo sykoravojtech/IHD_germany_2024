@@ -43,3 +43,13 @@
 ## smoking_germany.csv
 - https://data.oecd.org/healthrisk/daily-smokers.htm
 - Daily smokers are defined as the population aged 15 years and over who are reporting to smoke every day. Smoking is a major risk factor for at least two of the leading causes of premature mortality - circulatory disease and cancer, increasing the risk of heart attack, stroke, lung cancer, and cancers of the larynx and mouth. In addition, smoking is an important contributing factor for respiratory diseases. This indicator is presented as a total and per gender and is measured as a percentage of the population considered (total, men or women) aged 15 years and over.
+
+## oecd_healthSpending.csv
+- https://data.oecd.org/healthres/health-spending.htm
+- Health spending measures the final consumption of health care goods and services (i.e. current health expenditure) including personal health care (curative care, rehabilitative care, long-term care, ancillary services and medical goods) and collective services (prevention and public health services as well as health administration), but excluding spending on investments. Health care is financed through a mix of financing arrangements including government spending and compulsory health insurance (“Government/compulsory”) as well as voluntary health insurance and private funds such as households’ out-of-pocket payments, NGOs and private corporations (“Voluntary”). This indicator is presented as a total and by type of financing (“Government/compulsory”, “Voluntary”, “Out-of-pocket”) and is measured as a share of GDP, as a share of total health spending and in USD per capita (using economy-wide PPPs).
+- Total, US dollars/capita, 1970 – 2022
+
+## oecd_hospitalBeds.csv
+- https://data.oecd.org/healtheqt/hospital-beds.htm
+- This indicator provides a measure of the resources available for delivering services to inpatients in hospitals in terms of number of beds that are maintained, staffed and immediately available for use. Total hospital beds include curative (or acute) care beds, rehabilitative care beds, long-term care beds and other beds in hospitals. The indicator is presented as a total and for curative care and psychiatric care. It is measured in number of beds per 1 000 inhabitants.
+- Total, Per 1 000 inhabitants, 1991 – 2022
