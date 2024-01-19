@@ -5,6 +5,7 @@ This file has general utility functions.
 """
 
 import pandas as pd
+import pycountry
 from  constants.countries import highincome_countries
 
 def generate_high_income_global_avg_index(df: pd.DataFrame, country_name_col: str = "Country Name",
@@ -40,3 +41,100 @@ def generate_high_income_global_avg_index(df: pd.DataFrame, country_name_col: st
 
     df_final = pd.concat([df, df_highincome, df_global])
     return df_final
+
+
+invalid_country_names_gbd = set()
+
+invalid_country_mapping_gbd = {
+    'Venezuela (Bolivarian Republic of)': 'Venezuela',
+    'Republic of Moldova': 'Moldova',
+    'Taiwan (Province of China)': 'Taiwan',
+    'United Republic of Tanzania': 'Tanzania',
+    'Micronesia (Federated States of)': 'Micronesia, Federated States of',
+    'Iran (Islamic Republic of)': 'Iran',
+    'Republic of Korea': 'South Korea',
+    'Democratic People\'s Republic of Korea': 'North Korea',
+    'United States Virgin Islands': 'Virgin Islands, U.S.',
+    'Micronesia': 'Federated States of Micronesia',
+    'Turkey': 'Türkiye',
+    'United States of America': 'United States',
+    'Palestine': 'Palestine, State of',
+    'Democratic Republic of the Congo': 'Congo, The Democratic Republic of the',
+    'Bolivia (Plurinational State of)': 'Bolivia'
+}
+
+def get_iso3_gbd(country: str) -> str:
+    '''
+        Get the iso3 country code by country name for GBD data. Do some custom mapping for 
+        some country with non-standard names
+
+        Args:
+            country (str): name of the country
+        
+        Returns:
+            3 char string representing the country code or None if exception
+    '''
+    if country == 'Global':
+        return 'GLB'
+    elif country == 'High-income':
+        return 'HIC'
+    if country in invalid_country_mapping_gbd:
+        country = invalid_country_mapping_gbd[country]
+    try:
+        return pycountry.countries.get(name=country).alpha_3
+    except:
+        try:
+            return pycountry.countries.get(common_name=country).alpha_3
+        except:
+            invalid_country_names_gbd.add(country)
+            return None
+
+mapping_invalid_countries_wdi = {
+    "Bahamas, The": "Bahamas",
+    "Bolivia": "Bolivia, Plurinational State of",
+    "Channel Islands": "Jersey",
+    "Congo, Dem. Rep.": "Congo, The Democratic Republic of the",
+    "Congo, Rep.": "Congo",
+    "Cote d'Ivoire": "Côte d'Ivoire",
+    "Curacao": "Curaçao",
+    "Egypt, Arab Rep.": "Egypt",
+    "Gambia, The": "Gambia",
+    "Hong Kong SAR, China": "Hong Kong",
+    "Iran, Islamic Rep.": "Iran, Islamic Republic of",
+    "Korea, Dem. People\'s Rep.": "Korea, Democratic People\'s Republic of",
+    "Korea, Rep.": "Korea, Republic of",
+    "Lao PDR": "Lao People\'s Democratic Republic",
+    "Macao SAR, China": "Macao",
+    "Micronesia, Fed. Sts.": "Micronesia, Federated States of",
+    "Moldova": "Moldova, Republic of",
+    "St. Kitts and Nevis": "Saint Kitts and Nevis",
+    "St. Lucia": "Saint Lucia",
+    "St. Martin (French part)": "Saint Martin (French part)",
+    "St. Vincent and the Grenadines": "Saint Vincent and the Grenadines",
+    "Tanzania": "Tanzania, United Republic of",
+    "Turkiye": "Türkiye",
+    "Venezuela, RB": "Venezuela, Bolivarian Republic of",
+    "Virgin Islands (U.S.)": "Virgin Islands, U.S.",
+    "Yemen, Rep.": "Yemen"
+}
+
+def get_iso3_wdi(country_name: str) -> str:
+    '''
+        Get the iso3 country code by country name for WDI data. Do some custom mapping for 
+        some country with non-standard names
+
+        Args:
+            country (str): name of the country
+        
+        Returns:
+            3 char string representing the country code or None if exception
+    '''
+    if country_name in mapping_invalid_countries_wdi.keys():
+        country_name = mapping_invalid_countries_wdi[country_name]
+    try:
+        return pycountry.countries.get(name=country_name).alpha_3
+    except:
+        try:
+            return pycountry.countries.get(official_name=country_name).alpha_3
+        except:
+            return None
