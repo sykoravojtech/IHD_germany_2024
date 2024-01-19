@@ -24,7 +24,7 @@ OUTPUT_FILE = "data/final/daily_per_capita_fat_supply_final.csv"
 fat_df = process_fat_consumption_data(INPUT_FILE, OUTPUT_FILE)
 # ======================================================
 
-# ================ Fat consumption data ===============
+# =========== GDB ischemic heart disease data ==========
 INPUT_FILE = "data/raw/gbd_ischemicheartdiseaseglobal.csv"
 OUTPUT_FILE = "data/final/gbd_IschemicHeartDisease_DeathsIncidence.csv"
 
