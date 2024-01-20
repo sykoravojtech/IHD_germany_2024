@@ -138,3 +138,20 @@ def get_iso3_wdi(country_name: str) -> str:
             return pycountry.countries.get(official_name=country_name).alpha_3
         except:
             return None
+
+
+def min_max_scaler(series: pd.Series, ep:float=1e-8) -> pd.Series:
+    '''
+        Scale the series by substracting the min and divided by the difference
+        between the max and the min
+
+        Args:
+            series (pd.Series): pandas column to be transformed
+            ep (float): a small amount to avoid dividing by 0
+        
+        Returns:
+            series (pd.Series): the transformed series 
+    '''
+    _min = series.min()
+    _max = series.max()
+    return (series-_min)/(_max-_min+ep)

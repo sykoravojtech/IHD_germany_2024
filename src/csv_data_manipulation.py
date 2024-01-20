@@ -6,8 +6,10 @@ This file has general functions for manipulaiting data in csv files like melting
 
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 from typing import Tuple
-
+from constants.countries import country_code_to_name
+from src.utils import min_max_scaler
 
 def melt_all_year_cols_into_one(input_file: str = None, df: pd.DataFrame = None, output_file: str = None, replace_dots: bool = False, 
                                 remove_nan: bool = False, one_series: Tuple[str,str] = (), remove_cols: Tuple[str] = ()
@@ -74,16 +76,17 @@ def melt_all_year_cols_into_one(input_file: str = None, df: pd.DataFrame = None,
 
     return melted_df
 
-def process_fat_consumption_data(input_file, output_file='data/final/daily_per_capita_fat_supply_final.csv'):
+def process_fat_consumption_data(input_file:str, 
+                                output_file:str='data/final/daily_per_capita_fat_supply_final.csv') -> pd.DataFrame:
     """
-    Process global dat consumption data
+    Process global fat consumption data
 
     Args:
-        input_file: 
-        output_file: 
+        input_file: path to the raw csv file
+        output_file: path to save the processed data
 
     Returns:
-        final dataframe
+        The final dataframe
     """
     df = pd.read_csv(input_file)
 
@@ -121,3 +124,69 @@ def process_IschemicHeartDisease_data(input_file: str = "data/raw/gbd_ischemiche
         print(f"DataFrame saved to {output_file}")
         
     return df
+
+
+def process_OECD_data(input_file: str, output_file: str) -> pd.DataFrame:
+    """
+    Process OECD health indicator data. Get country names using country ISO 3 codes
+
+    Args:
+        input_file: path to the raw csv file
+        output_file: path to save the processed data
+
+    Returns:
+        The final dataframe
+    """
+    df = pd.read_csv(input_file)
+    df['NAME'] = df['LOCATION'].map(country_code_to_name)
+    df = df[['NAME', 'LOCATION', 'INDICATOR', 'TIME', 'Value']]
+    df.columns = ['Country Name', 'Country Code', 'Series Name', 'Year', 'Value']
+
+    if output_file:
+        df.to_csv(output_file, index=False)
+        print(f"DataFrame saved to {output_file}")
+
+    return df
+
+def combine_OECD_health_indicators(input_file1:str, input_file2:str, output_file,
+                                    show_after_scaling=True) -> pd.DataFrame:
+    '''
+        Combine 2 health care indicators to obtain a unified one by using non-weighted mean of scaled values
+        
+        Args:
+            input_file1: path to the raw csv file 1
+            input_file2: path to the raw csv file 2
+            output_file: path to save the combined data
+            show_after_scaling: whether to visualize the distributions of the 2 scaled factors
+        
+        Returns:
+            The dataframe with the combined value column
+    '''
+    USED_COLS = ['Country Name', 'Country Code', 'Year', 'Value']
+    healthSpending_df = pd.read_csv(input_file1)
+    beds_df = pd.read_csv(input_file2)
+    health_df = healthSpending_df[USED_COLS].merge(beds_df[USED_COLS], on=['Country Code', 'Country Name',  'Year'], suffixes=['HealthExp', 'Beds'])
+    health_df['ValueHealthExpNorm'] = min_max_scaler(health_df['ValueHealthExp'])
+    health_df['ValueBedsNorm'] = min_max_scaler(health_df['ValueBeds'])
+    health_df['Value'] = (health_df['ValueHealthExpNorm'] + health_df['ValueBedsNorm'] ) / 2
+
+    if show_after_scaling:
+        plt.figure(figsize=(15,5))
+        plt.subplot(1,3,1)
+        plt.boxplot(health_df['ValueHealthExpNorm'], showfliers=False)
+        plt.title('Health expenditure per capita in USD')
+        plt.subplot(1,3,2)
+        plt.boxplot(health_df['ValueBedsNorm'], showfliers=False)
+        plt.title('Number of hospital beds per 1000 habitants')
+        plt.subplot(1,3,3)
+        plt.boxplot(health_df['Value'], showfliers=False)
+        plt.title('Combined indicator')
+        plt.show()
+
+    health_df = health_df.drop(['ValueHealthExp', 'ValueHealthExpNorm', 'ValueBeds', 'ValueBedsNorm'], axis=1)
+    health_df['Series Name'] = 'Combined Health Indicator'
+    health_df = health_df[['Country Name', 'Country Code', 'Series Name', 'Year', 'Value']]
+    if output_file:
+        health_df.to_csv(output_file, index=False)
+        print(f"DataFrame saved to {output_file}")
+    return health_df
