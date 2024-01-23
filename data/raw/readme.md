@@ -53,3 +53,6 @@
 - https://data.oecd.org/healtheqt/hospital-beds.htm
 - This indicator provides a measure of the resources available for delivering services to inpatients in hospitals in terms of number of beds that are maintained, staffed and immediately available for use. Total hospital beds include curative (or acute) care beds, rehabilitative care beds, long-term care beds and other beds in hospitals. The indicator is presented as a total and for curative care and psychiatric care. It is measured in number of beds per 1 000 inhabitants.
 - Total, Per 1 000 inhabitants, 1991 – 2022
+
+## median-age.csv
+- https://ourworldindata.org/grapher/median-age?tab=table&time=earliest..2020

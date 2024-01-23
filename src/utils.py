@@ -43,8 +43,6 @@ def generate_high_income_global_avg_index(df: pd.DataFrame, country_name_col: st
     return df_final
 
 
-invalid_country_names_gbd = set()
-
 invalid_country_mapping_gbd = {
     'Venezuela (Bolivarian Republic of)': 'Venezuela',
     'Republic of Moldova': 'Moldova',
@@ -65,14 +63,14 @@ invalid_country_mapping_gbd = {
 
 def get_iso3_gbd(country: str) -> str:
     '''
-        Get the iso3 country code by country name for GBD data. Do some custom mapping for 
-        some country with non-standard names
+        Get the iso3 country code by country name for GBD data. Use a custom mapping for
+        some countries with non-standard names
 
         Args:
             country (str): name of the country
         
         Returns:
-            3 char string representing the country code or None if exception
+            string of length 3 representing the country code or None if exception
     '''
     if country == 'Global':
         return 'GLB'
@@ -86,7 +84,6 @@ def get_iso3_gbd(country: str) -> str:
         try:
             return pycountry.countries.get(common_name=country).alpha_3
         except:
-            invalid_country_names_gbd.add(country)
             return None
 
 mapping_invalid_countries_wdi = {
@@ -120,14 +117,14 @@ mapping_invalid_countries_wdi = {
 
 def get_iso3_wdi(country_name: str) -> str:
     '''
-        Get the iso3 country code by country name for WDI data. Do some custom mapping for 
-        some country with non-standard names
+        Get the iso3 country code by country name for GBD data. Use a custom mapping for
+        some countries with non-standard names
 
         Args:
             country (str): name of the country
         
         Returns:
-            3 char string representing the country code or None if exception
+            string of length 3 representing the country code or None if exception
     '''
     if country_name in mapping_invalid_countries_wdi.keys():
         country_name = mapping_invalid_countries_wdi[country_name]
