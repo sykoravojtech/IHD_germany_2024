@@ -48,8 +48,8 @@ def plot_value_per_year_GER_HIC_GLO(df: pd.DataFrame, ax: plt.axes = None, value
 
     # Plotting lines
     FOREGROUND_LINEWIDTH = 2
-    BACKGROUND_LINEWIDTH = 1
-    BACKGROUND_ALPHA = 0.3
+    BACKGROUND_LINEWIDTH = 0.75
+    BACKGROUND_ALPHA = 0.2
     for region in df[country_column].unique():
         curr_df = df[df[country_column] == region]
         ax.plot(curr_df[year_column], curr_df[value_column], color=rgb.tue_gray, linewidth=BACKGROUND_LINEWIDTH, alpha=BACKGROUND_ALPHA)
@@ -120,16 +120,16 @@ def plot_comparison_GER_HIC_GLO(df: pd.DataFrame, value_column: str = "Value", y
         None
     """
     
-    plt.rcParams.update(bundles.icml2022(column="full", ncols=3, nrows=1))
+    plt.rcParams.update(bundles.icml2022(column="full", ncols=2, nrows=1))
     
     fig, ax = plt.subplots(1, 3)
 
     plot_value_per_year_GER_HIC_GLO(df[df[indicator_column] == indicator1], ax=ax[0], value_column=value_column, 
                                     year_column=year_column, country_column=country_column, xticks=xticks, xlabel=xlabel,
-                                    ylabel=ylabel, title=title + ", " + indicator1, legend=False)
+                                    ylabel=ylabel, title=indicator1, legend=False)
     plot_value_per_year_GER_HIC_GLO(df[df[indicator_column] == indicator2], ax=ax[1], value_column=value_column,
                                     year_column=year_column, country_column=country_column, xticks=xticks,
-                                    xlabel=xlabel, title=title + ", " + indicator2, legend=False)
+                                    xlabel=xlabel, title=indicator2, legend=False)
     
     # Step 1: Split the DataFrame into two DataFrames, one for each indicator
     deaths_df = df[df[indicator_column] == indicator2].rename(columns={value_column: value_column+"_1"})
@@ -148,7 +148,7 @@ def plot_comparison_GER_HIC_GLO(df: pd.DataFrame, value_column: str = "Value", y
     
     plot_value_per_year_GER_HIC_GLO(ratio_df, ax=ax[2], value_column=value_column, year_column=year_column, country_column=country_column,
                                     xticks=xticks, xlabel=xlabel,
-                                    title=title + " " + indicator2 + " / " + indicator1, legend=False)
+                                    title=indicator2 + " / " + indicator1, legend=False)
 
     labels = ['Global', 'High income', 'Germany']
     linewidth = 5
@@ -163,7 +163,7 @@ def plot_comparison_GER_HIC_GLO(df: pd.DataFrame, value_column: str = "Value", y
     # Add the legend with 4 columns and 1 row
     # legend should be placed at the bottom of the figure, centered horizontally
     # under the subplots so it is visible
-    fig.legend(handles, labels, loc='upper center', bbox_to_anchor=(0.5, -0.001), shadow=False, ncol=3)
+    fig.legend(handles, labels, loc='upper right', ncol=3)
     # plt.legend(loc='upper center', bbox_to_anchor=(0.5, -0.05), shadow=True, ncol=2)
 
     # set x and y label for the whole figure
