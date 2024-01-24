@@ -17,14 +17,20 @@ In this section, describe \emph{what you did}. Roughly speaking, explain what da
 % \vskip -0.2in
 % \end{figure}
 
-Obtaining non-sparse data for all countries in the world over a long time horizon is quite difficult.
+\subsection{Data}
+Obtaining non-sparse data for all countries in the world over a long time horizon is quite challenging.
 
 We began by exploring ourselves if cardiovascular diseases are in Germany truly abnormal with comparison to the rest of the world. In all of our analysis we wanted to include a closer comparison with high-income countries since Germany is one of them and comparing countries with similar healthcare and gdp could lead to more concrete results. There is not a wide variety of enormous datasets including data about all countries over a long time period and the one that we decided to use for Figure \ref{Cardiovascular diseases over time} was the Global Burden of Disease study \citep{GBD2019}. The filtering on their website makes it easy to download only the data we truly needed. We obtained information about the death rate and incidence rate of CVDs for all countries divided into 5-year age groups for years 1990-2019. The data also included a lower and upper bound for uncertainty. The only change we did outselves was leaving only the rows corresponging to the sum of all age groups.
 
 Furthermore, CVDs are a group of diseases and to get to the root of the issue we needed to investigate which specific diseases from this group take up the majority of cases. For this we went back to \citep{GBD2019} and requested data about specific CVDs. There was too much data for one file which meant that we had to combine files and filter out unwanted data as to leave us only with the number of deaths grouped by disease only for Germany. 
 % THIS IS STILL IN THE OLD REPO 
 
-Since a disease death rate and incidence rate may largely rely on the healthcare system of a country, we decided to research if there are any valid healthcare indicators. Unfortunately, finding such an indicator for all countries did not lead anywhere, we decided to combine existing data on number of hospital beds, health spending, and ... TODO ...
+Since a disease death rate and incidence rate may largely rely on the healthcare system of a country. Thus, we used healthcare expenditure as the percentage of GDP from \citep{health_expenditure} as to indicate whether a country has a high quality medical system.
+
+When it comes to causes, CVDs are likely influenced by a range of factors. These include dietary habits, especially fat consumption as detailed in \citep{fat_consumption}, where the data is measured in daily fat intake per person. Lifestyle choices such as alcohol consumption, referenced from \citep{alcohol_consumption}, are quantified by annual sales of pure alcohol in liters per person aged 15 and older. The role of smoking in CVDs prevalence is also considered, with data sourced from \citep{smoking}, highlighting the percentage of the population over 15 years old who smoke daily. Additionally, the impact of an aging population on CVDs is a significant factor, as indicated by demographic data from \citep{age}, suggesting potential correlations.
+
+
+
 Which was then plotted in a bubble plot. This data came form various different sources ... TODO ...
 
 Here add stuff about correlation data like alcohol, smoking, fat ...

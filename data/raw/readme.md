@@ -17,7 +17,7 @@
 - There is missing data and it is written as two dots '..'
 
 ## daily_per_capita_fat_supply.csv
-- http://www.fao.org/faostat/en/#data/FBS
+- https://ourworldindata.org/grapher/daily-per-capita-fat-supply
 - The downloaded data is processed by "Our World in Data" website, and contains this information
   - Entity: Country or Region
   - Code: Country Code
