@@ -2,9 +2,9 @@ import pandas as pd
 
 import sys
 sys.path.append('.')
-from src import (melt_all_year_cols_into_one, process_fat_consumption_data,
+from src.csv_data_manipulation import (melt_all_year_cols_into_one, process_fat_consumption_data,
                  process_IschemicHeartDisease_data, process_OECD_data,
-                 combine_OECD_health_indicators)
+                 combine_OECD_health_indicators, process_cardiovascular_data)
 
 # ============= Alcohol consumption data =============
 INPUT_FILE = "data/raw/wdi_tobaccoalcohol_population.csv"
@@ -50,5 +50,14 @@ process_OECD_data(INPUT_FILE_2, OUTPUT_FILE_2)
 # combine the above 2 health care factors
 # - first standardize each factor
 # - average them together to form a unified health care indicator
-combine_OECD_health_indicators(OUTPUT_FILE_1, OUTPUT_FILE_2, OUTPUT_COMBINED)
+combine_OECD_health_indicators(OUTPUT_FILE_1, OUTPUT_FILE_2, OUTPUT_COMBINED, show_after_scaling=False)
 # ======================================================
+
+
+# ============= GBD cardiovascular disease data ===========
+INPUT_FILE = "data/raw/gbd_cardiovascular.csv"
+OUTPUT_FILE1 = "data/final/gbd_cardiovascular_allAges_final.csv"
+OUTPUT_FILE_2 = "data/final/gbd_cardiovascular_ageRanges_final.csv"
+
+process_cardiovascular_data(INPUT_FILE, OUTPUT_FILE1, OUTPUT_FILE_2)
+# ==========================================================

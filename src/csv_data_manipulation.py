@@ -9,7 +9,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 from typing import Tuple
 from constants.countries import country_code_to_name
-from src.utils import min_max_scaler
+
+import sys
+sys.path.append('.')
+
+from src.utils import min_max_scaler, get_iso3_gbd
 
 def melt_all_year_cols_into_one(input_file: str = None, df: pd.DataFrame = None, output_file: str = None, replace_dots: bool = False, 
                                 remove_nan: bool = False, one_series: Tuple[str,str] = (), remove_cols: Tuple[str] = ()
@@ -148,6 +152,7 @@ def process_OECD_data(input_file: str, output_file: str) -> pd.DataFrame:
 
     return df
 
+
 def combine_OECD_health_indicators(input_file1:str, input_file2:str, output_file,
                                     show_after_scaling=True) -> pd.DataFrame:
     '''
@@ -190,3 +195,43 @@ def combine_OECD_health_indicators(input_file1:str, input_file2:str, output_file
         health_df.to_csv(output_file, index=False)
         print(f"DataFrame saved to {output_file}")
     return health_df
+
+
+def process_cardiovascular_data(input_file: str, output_file1: str, output_file2: str) -> (pd.DataFrame, pd.DataFrame):
+    """
+    Process cardiovascular disease data from GBD. Get country names using country ISO 3 codes.
+    Divide the data into 2 dataframes: one for all ages and one for age ranges.
+    
+    Args:
+        input_file: path to the raw csv file
+        output_file1: path to save the processed data for all ages
+        output_file2: path to save the processed data for age ranges
+    
+    Returns:
+        The final dataframes
+    """
+    
+    input_df = pd.read_csv(input_file)
+    input_df.drop(columns=['measure_id' ,'location_id', 'sex_id', 'sex_name', 'age_id', 'cause_id', 'metric_id', 'upper', 'lower', 'cause_name'], inplace=True)
+    
+    # measure_id,measure_name,location_id,location_name,sex_id,sex_name,age_id,age_name,cause_id,cause_name,metric_id,metric_name,year,val,upper,lower
+    all_ages_df = input_df[input_df['age_name'] == 'All ages'].copy()
+    all_ages_df.drop(columns=['age_name'], inplace=True)
+    all_ages_df['Country Code'] = all_ages_df['location_name'].map(get_iso3_gbd)
+    
+    if output_file1:
+        all_ages_df.to_csv(output_file1, index=False)
+        print(f"DataFrame saved to {output_file1}")
+    
+    age_ranges_df = input_df[input_df['age_name'] != 'All Ages'].copy()
+    age_ranges_df = age_ranges_df[(age_ranges_df['location_name'] == 'Global') | 
+                                  (age_ranges_df['location_name'] == 'High-income') | 
+                                  (age_ranges_df['location_name'] == 'Germany')] 
+    
+    if output_file2:
+        age_ranges_df.to_csv(output_file2, index=False)
+        print(f"DataFrame saved to {output_file2}")
+    
+    return all_ages_df, age_ranges_df
+    
+    
