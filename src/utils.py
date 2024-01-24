@@ -7,10 +7,12 @@ This file has general utility functions.
 import pandas as pd
 import pycountry
 from  constants.countries import highincome_countries
+from typing import List
 
 def generate_high_income_global_avg_index(df: pd.DataFrame, country_name_col: str = "Country Name",
-                                          country_code_col: str = "Country Code", add_series_name: bool = False,
-                                          value_col: str = "Value"
+                                          country_code_col: str = "Country Code", year_col='Year',
+                                          add_series_name: bool = False,
+                                          value_cols: List[str] = ['Value']
                                           ) -> pd.DataFrame:
     """
     Calculates average value for all countries combined and all high-income countries combined.
@@ -27,13 +29,20 @@ def generate_high_income_global_avg_index(df: pd.DataFrame, country_name_col: st
     """
     
     is_high_income = df[country_name_col].isin(highincome_countries)
-    df_highincome = df[is_high_income].groupby('Year')[value_col].mean().reset_index()
+    if year_col is not None:
+        df_highincome = df[is_high_income].groupby('Year')[value_cols].mean().reset_index()
+    else:
+        df_highincome = df[is_high_income][value_cols].mean().to_frame().T
     if add_series_name:
         df_highincome['Series Name'] = df['Series Name'].iloc[0]
     df_highincome[country_name_col] = 'High-income'
     df_highincome[country_code_col] = 'HIC'
 
-    df_global = df.groupby('Year')[value_col].mean().reset_index()
+    if year_col is not None:
+        df_global = df.groupby('Year')[value_cols].mean().reset_index()
+    else:
+        df_global = df[value_cols].mean().to_frame().T
+
     if add_series_name:
         df_global['Series Name'] = df['Series Name'].iloc[0]
     df_global[country_name_col] = 'Global'
