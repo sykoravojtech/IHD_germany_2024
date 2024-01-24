@@ -27,10 +27,20 @@ Furthermore, CVDs are a group of diseases and to get to the root of the issue we
 
 Since a disease death rate and incidence rate may largely rely on the healthcare system of a country. Thus, we used healthcare expenditure as the percentage of GDP from \citep{health_expenditure} as to indicate whether a country has a high quality medical system.
 
-When it comes to causes, CVDs are likely influenced by a range of factors. These include dietary habits, especially fat consumption as detailed in \citep{fat_consumption}, where the data is measured in daily fat intake per person. Lifestyle choices such as alcohol consumption, referenced from \citep{alcohol_consumption}, are quantified by annual sales of pure alcohol in liters per person aged 15 and older. The role of smoking in CVDs prevalence is also considered, with data sourced from \citep{smoking}, highlighting the percentage of the population over 15 years old who smoke daily. Additionally, the impact of an aging population on CVDs is a significant factor, as indicated by demographic data from \citep{age}, suggesting potential correlations.
+When it comes to causes, CVDs are likely influenced by a range of factors. These include dietary habits, especially fat consumption as detailed in \citep{fat_consumption}, where the data is measured in daily fat intake per person. Lifestyle choices such as alcohol consumption, referenced from \citep{alcohol_consumption}, are quantified by annual sales of pure alcohol in liters per person aged 15 and older. The role of smoking in CVDs prevalence is also considered, with data sourced from \citep{smoking}, highlighting the percentage of the population over 15 years old who smoke daily. Additionally, the impact of an aging population on CVDs is a significant factor, as indicated by demographic data from \citep{age}, suggesting potential correlations. 
+
+A key challenge on using data from various sources lies in consistency. They might differ in the number of countries, years of study, and some even contains missing data for different years. See table 1 for details. As a result, we ended up choosing a mutual set of 178 countries and a date range from 1990 to 2019 to perform analysis on, which balance between data quantity and the number of missing values. The joining process is done using the ISO-3 country code.
 
 
-
-Which was then plotted in a bubble plot. This data came form various different sources ... TODO ...
-
-Here add stuff about correlation data like alcohol, smoking, fat ...
+\begin{tabular}{|p{2cm}|p{1cm}|p{2cm}|p{2cm}|}
+\hline
+Data source & Number of countries & Year range & Percentage of missing data from 1990 - 2021\\
+\hline
+Global Burden Disease IHC & 206 & 1990 - 2019 & 0\%\\
+Health expenditure & 266 & 1960 - 2022 & 41\%\\
+Fat consumption & 194 & 1961 - 2020 & 0\%\\
+Alcohol consumption & 187 & 2000 - 2019 & 0\%\\
+Population age & 238 & 1950 - 2100 & 0\%\\
+\hline
+\end{tabular}
+Table 1
