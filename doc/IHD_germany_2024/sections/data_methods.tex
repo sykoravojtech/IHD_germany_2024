@@ -50,16 +50,7 @@ stroke (\figurename~\ref{specific_cardiovascular_diseases}). We found out that t
 is way more similar to the global average, as shown in \url{INSERT URL}. This suggests that ischemic heart disease is the main cause of the high incidence rate of 
 cardiovascular diseases in Germany.
 
-\begin{figure}[ht]
-    \vskip 0.2in
-    \begin{center}
-    \centerline{\includegraphics[width=\columnwidth]{fig/CVD_germany.pdf}}
-    \caption{Total number of deaths by specific cardiovascular diseases in Germany. Only the top 2 are labeled because the rest are much less common. 
-    The most common cardiovascular disease in Germany is by far the ischemic heart disease, followed by stroke.}
-    \label{specific_cardiovascular_diseases}
-    \end{center}
-    \vskip -0.2in
-\end{figure}
+\textcolor{red}{TODO: Add the plot for different cardiovascular diseases.}
 
 \subsection{Data sources for factors}\label{sec:data_sources}
 Our next step was to use different data sources to find out the underlying factors that have an effect on the incidence rate of ischemic heart disease. We looked at some of 
@@ -108,11 +99,17 @@ We decided on not averaging the missing values, but instead using the data as it
 
 
 
-
-
+\begin{figure*}[ht]
+    \vskip 0.2in
+    \centering
+    \centerline{\includegraphics[]{fig/fig_factor_analysis.pdf}}
+    \caption{Factor analysis. From left to right: alcohol consumption, fat consumption, and health expenditure. }
+    \label{Factor analysis}
+\end{figure*}
 
 The factors we chose not only reflect the well-known factors of CVDs, but also reflect Germany's culture. High alcohol consumption mainly in the form of beer and high fat consumption such as in a Bratwurst are what most of the world knows about this nation. But how out of the ordinary is this behaviour in Germany compared to the rest of the world and other high-income countries? Is Germany's culture pushing them towards a quicker death?
 
-In Figure FACTOR ANALYSIS in the leftmost plot we can see alcohol consumption per capita in liters. While it has been on a steady decline since the 1970s, Germany still stays far beyond the global and high-income averages. This decline in alcohol consumption is potentially indicative of successful public health interventions, policy reforms, and changing social norms towards alcohol usage within the country. The middle plot presents the trends in fat supply per capita in grams per day. All three highlighted lines show that the trend is gradually increasing while keeping Germany on top. The rightmost plot illustrates health expenditure in USD per capita, where all three cohorts show a substantial increase over the six-decade span.
+
+In \figurename~\ref{Factor analysis} in the leftmost plot we can see alcohol consumption per capita in liters. While it has been on a steady decline since the 1970s, Germany still stays far beyond the global and high-income averages. This decline in alcohol consumption is potentially indicative of successful public health interventions, policy reforms, and changing social norms towards alcohol usage within the country. The middle plot presents the trends in fat supply per capita in grams per day. All three highlighted lines show that the trend is gradually increasing while keeping Germany on top. The rightmost plot illustrates health expenditure in USD per capita, where all three cohorts show a substantial increase over the six-decade span.
 
 Alcohol consumption and health spending align with the overarching trend that Germany is trying to diminish the burden from CVDs; however, fat consumption seems to go against it. Nevertheless, seeing a difference between two lines does not give a solid view on how each factor truly affects the incidence or death rate which is where the results section comes in.
