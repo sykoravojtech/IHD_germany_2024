@@ -12,7 +12,7 @@ from tueplots.constants.color import rgb
 
 def plot_value_per_year_GER_HIC_GLO(df: pd.DataFrame, ax: plt.axes = None, value_column: str = "Value", year_column: str = "Year", 
                                     country_column: str = "Country Name", xticks: int = None, output_fig_path: str = None,
-                                    xlabel: str = None, ylabel: str = None, title: str = None, legend: bool = True
+                                    xlabel: str = None, ylabel: str = None, title: str = None, legend: bool = True, code: bool = False
                                     ) -> None:
     """ 
     Plots the value of a column per year, with Germany, High-income countries and Global values highlighted.
@@ -29,6 +29,7 @@ def plot_value_per_year_GER_HIC_GLO(df: pd.DataFrame, ax: plt.axes = None, value
         ylabel: ylabel
         title: title
         legend: if True, shows legend, if False, does not show legend
+        code: if True, shows uses country codes instead of country names
     
     Returns:
         None
@@ -56,11 +57,11 @@ def plot_value_per_year_GER_HIC_GLO(df: pd.DataFrame, ax: plt.axes = None, value
         
     for region in df[country_column].unique():
         curr_df = df[df[country_column] == region]
-        if region == 'Germany':
+        if (region == 'Germany' and not code) or (region == 'DEU' and code):
             ax.plot(curr_df[year_column], curr_df[value_column], label=region, color=rgb.tue_red, linewidth=FOREGROUND_LINEWIDTH)
-        elif region == 'Global':
+        elif (region == 'Global' and not code) or (region == 'GLB' and code):
             ax.plot(curr_df[year_column], curr_df[value_column], label=region, color=rgb.tue_blue, linewidth=FOREGROUND_LINEWIDTH)
-        elif region == 'High-income':
+        elif (region == 'High-income' and not code) or (region == 'HIC' and code):
             ax.plot(curr_df[year_column], curr_df[value_column], label=region, color=rgb.tue_orange, linewidth=FOREGROUND_LINEWIDTH)
 
     # Setting labels and titles

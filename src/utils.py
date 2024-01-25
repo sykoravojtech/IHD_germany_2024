@@ -30,7 +30,7 @@ def generate_high_income_global_avg_index(df: pd.DataFrame, country_name_col: st
     
     is_high_income = df[country_name_col].isin(highincome_countries)
     if year_col is not None:
-        df_highincome = df[is_high_income].groupby('Year')[value_cols].mean().reset_index()
+        df_highincome = df[is_high_income].groupby(year_col)[value_cols].mean().reset_index()
     else:
         df_highincome = df[is_high_income][value_cols].mean().to_frame().T
     if add_series_name:
@@ -39,7 +39,7 @@ def generate_high_income_global_avg_index(df: pd.DataFrame, country_name_col: st
     df_highincome[country_code_col] = 'HIC'
 
     if year_col is not None:
-        df_global = df.groupby('Year')[value_cols].mean().reset_index()
+        df_global = df.groupby(year_col)[value_cols].mean().reset_index()
     else:
         df_global = df[value_cols].mean().to_frame().T
 
