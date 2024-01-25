@@ -1,4 +1,13 @@
-In this section, describe \emph{what you did}. Roughly speaking, explain what data you worked with, how or from where it was collected, it's structure and size. Explain your analysis, and any specific choices you made in it. Depending on the nature of your project, you may focus more or less on certain aspects. If you collected data yourself, explain the collection process in detail. If you downloaded data from the net, show an exploratory analysis that builds intuition for the data, and shows that you know the data well. If you are doing a custom analysis, explain how it works and why it is the right choice. If you are using a standard tool, it may still help to briefly outline it. Cite relevant works. You can use the \verb|\citep| (whole citation in parenthesis) and \verb|\citet| (only year in parenthesis) commands for this purpose \citep{mackay2003information}.
+% In this section, describe \emph{what you did}. Roughly speaking, explain what data you worked with, how or from where it was collected, 
+% it's structure and size. Explain your analysis, and any specific choices you made in it. Depending on the nature of your project, 
+% you may focus more or less on certain aspects. If you collected data yourself, explain the collection process in detail. 
+% If you downloaded data from the net, show an exploratory analysis that builds intuition for the data, and shows that you know the data well. 
+% If you are doing a custom analysis, explain how it works and why it is the right choice. If you are using a standard tool, 
+% it may still help to briefly outline it. Cite relevant works. You can use the \verb|\citep| (whole citation in parenthesis) 
+% and \verb|\citet| (only year in parenthesis) commands for this purpose \citep{mackay2003information}.
+
+There is no single dataset that contains all the information we need. Thus, we had to combine data from multiple sources. In this section, we will describe the data we used 
+and show exploratory analysis of the data. We will also explain the methods we used to analyze the data.
 
 % This is the template for a figure from the original ICML submission pack. In lecture 10 we will discuss plotting in detail.
 % Refer to this lecture on how to include figures in this text.
@@ -17,41 +26,82 @@ In this section, describe \emph{what you did}. Roughly speaking, explain what da
 % \vskip -0.2in
 % \end{figure}
 
-\subsection{Data}
-Obtaining non-sparse data for all countries in the world over a long time horizon is quite challenging.
-
-We began by exploring ourselves if cardiovascular diseases are in Germany truly abnormal with comparison to the rest of the world. In all of our analysis we wanted to include a closer comparison with high-income countries since Germany is one of them and comparing countries with similar healthcare and gdp could lead to more concrete results. There is not a wide variety of enormous datasets including data about all countries over a long time period and the one that we decided to use for Figure \ref{Cardiovascular diseases over time} was the Global Burden of Disease study \citep{GBD2019}. The filtering on their website makes it easy to download only the data we truly needed. We obtained information about the death rate and incidence rate of CVDs for all countries divided into 5-year age groups for years 1990-2019. The data also included a lower and upper bound for uncertainty. The only change we did outselves was leaving only the rows corresponging to the sum of all age groups.
-
-Furthermore, CVDs are a group of diseases and to get to the root of the issue we needed to investigate which specific diseases from this group take up the majority of cases. For this we went back to \citep{GBD2019} and requested data about specific CVDs. There was too much data for one file which meant that we had to combine files and filter out unwanted data as to leave us only with the number of deaths grouped by disease only for Germany. 
-% THIS IS STILL IN THE OLD REPO 
-
-Since a disease death rate and incidence rate may largely rely on the healthcare system of a country. Thus, we used healthcare expenditure as the percentage of GDP from \citep{health_expenditure} as to indicate whether a country has a high quality medical system.
-
-When it comes to causes, CVDs are likely influenced by a range of factors. These include dietary habits, especially fat consumption as detailed in \citep{fat_consumption}, where the data is measured in daily fat intake per person. Lifestyle choices such as alcohol consumption, referenced from \citep{alcohol_consumption}, are quantified by annual sales of pure alcohol in liters per person aged 15 and older. The role of smoking in CVDs prevalence is also considered, with data sourced from \citep{smoking}, highlighting the percentage of the population over 15 years old who smoke daily. Additionally, the impact of an aging population on CVDs is a significant factor, as indicated by demographic data from \citep{age}, suggesting potential correlations. 
-
-A key challenge on using data from various sources lies in consistency. They might differ in the number of countries, years of study, and some even contains missing data for different years. See table 1 for details. As a result, we ended up choosing a mutual set of 178 countries and a date range from 1990 to 2019 to perform analysis on, which balance between data quantity and the number of missing values. The joining process is done using the ISO-3 country code.
-
-
-\begin{tabular}{|p{2cm}|p{1cm}|p{2cm}|p{2cm}|}
-\hline
-Data source & Number of countries & Year range & Percentage of missing data from 1990 - 2021\\
-\hline
-Global Burden Disease IHC & 206 & 1990 - 2019 & 0\%\\
-Health expenditure & 266 & 1960 - 2022 & 41\%\\
-Fat consumption & 194 & 1961 - 2020 & 0\%\\
-Alcohol consumption & 187 & 2000 - 2019 & 0\%\\
-Population age & 238 & 1950 - 2100 & 0\%\\
-\hline
-\end{tabular}
-Table 1
-
+\subsection{Cardiovascular data}\label{sec:cardiovascular_data}
+The first step in our analysis was to find out whether cardiovascular diseases are a problem in Germany. We used the data from the Global Burden of Disease study \citep{GBD2019}
+to compare the incidence and death rate of cardiovascular diseases in Germany to other high-income countries and the world. The data also contains 
+the incidence and death rate for specific age groups which we used to compare the age distribution of cardiovascular diseases in Germany to other countries.
+In \figurename~\ref{Cardiovascular diseases over time} we can see that Germany has very high incidence and death rate of cardiovascular diseases. We performed a
+permutation test to check whether the incidence rate in Germany is statistically significant. In the test, we compared the average incidence rate from 1990 to 2019
+of Germany to the average incidence rate of the world. Over a million permutations, we found that the p-value is $\approx 0.045$. 
+In the plot on the right we can also see that the ratio of death rate to incidence rate is much more similar. There appears to be no major difference between the global average and the average of 
+high-income countries, which should have a better healthcare system. This suggests that the effect of the quality of healthcare on the ratio is not very significant.
 
 \begin{figure*}[h]
     \vskip 0.2in
     \centering
     \centerline{\includegraphics[]{fig/fig_cardiovascular_disease_rate.pdf}}
-    \caption{Effect of the cardiovascular diseases on the world over time. From left to right: incidence rate, death rate, 
-    and the ratio of death rate to incidence rate. The data is taken from the Global Burden of Disease study \citep{GBD2019}. We specifically focus on the values 
-    for Germany in comparison to other high income countries and the world.}
+    \caption{Cardiovascular diseases in the world over time. From left to right: incidence rate, death rate, 
+    and the ratio of death rate to incidence rate.}
     \label{Cardiovascular diseases over time}
 \end{figure*}
+
+Since cardiovascular diseases are just a group of diseases, we also looked at the most common cardiovascular disease in Germany. The top two are ischemic heart disease and 
+stroke (\figurename~\ref{specific_cardiovascular_diseases}). We found out that the incidence rate of ischemic heart disease in Germany is also very high, as shown in \url{INSERT URL}. The incidence rate of stroke in Germany
+is way more similar to the global average, as shown in \url{INSERT URL}. This suggests that ischemic heart disease is the main cause of the high incidence rate of 
+cardiovascular diseases in Germany.
+
+\begin{figure}[ht]
+    \vskip 0.2in
+    \begin{center}
+    \centerline{\includegraphics[width=\columnwidth]{fig/CVD_germany.pdf}}
+    \caption{Total number of deaths by specific cardiovascular diseases in Germany. Only the top 2 are labeled because the rest are much less common. 
+    The most common cardiovascular disease in Germany is by far the ischemic heart disease, followed by stroke.}
+    \label{specific_cardiovascular_diseases}
+    \end{center}
+    \vskip -0.2in
+\end{figure}
+
+\subsection{Data sources for factors}\label{sec:data_sources}
+Our next step was to use different data sources to find out the underlying factors that have an effect on the incidence rate of ischemic heart disease. We looked at some of 
+the most common risk factors: alcohol consumption and fat consumption. We also included health expenditure as a proxy for the quality of healthcare. Because of the 
+distribution of incidence rate depending on age, as shown in \figurename~\ref{Cardiovascular diseases for age groups}, we also included the median age of the population as a 
+factor.
+
+\begin{figure}[ht]
+\vskip 0.2in
+\begin{center}
+\centerline{\includegraphics[width=\columnwidth]{fig/fig_cardiovascular_disease_agerange.pdf}}
+\caption{Average incidence rate of cardiovascular diseases for 10 year age groups. The incidence rate is much higher for older age groups, but 
+always the highest in Germany.}
+\label{Cardiovascular diseases for age groups}
+\end{center}
+\vskip -0.2in
+\end{figure}
+
+The biggest obstacle was the lack of data that is available for all countries over a long time period. For different factors we had to use different data sources.
+The data for health expenditure (per capita) and alcohol consumption (liters of pure alcohol per person aged 15 and older) is from \citet{oecd}. 
+The data for population age is from \citet{age}, while the data for fat consumption (grams per person per day) is from \citet{fat_consumption}. The data varies in the time period it covers,
+the number of countries it contains, and the number of missing values, as shown in \tablename~\ref{Data overview}. We used the data from 1990 to 2019, which is the time period
+that is available for the diseases.
+
+\begin{table}[h]
+    \centering
+    \caption{Overview of the data sources. The missing data is calculated for the time period from 1990 to 2019.}
+    \label{Data overview}
+    \begin{tabular}{|c|c|c|c|}
+    \hline
+    Data source & No. of countries & Missing data\\
+    \hline
+    Ischemic heart disease & 206 & 0\%\\
+    Health expenditure & 266 & 41\%\\
+    Fat consumption & 194 & 0\%\\
+    Alcohol consumption & 187 & a lot\%\\
+    Population age & 238 & 0\%\\
+    \hline
+    \end{tabular}
+\end{table}
+
+We made animations and visualizations of the data with enough data points as part of the exploratory analysis. The animations are available at \url{INSERT URL}. 
+For the rest of the project we merged the data sources into one dataset, with the goal of modeling the death rate of ischemic heart disease. Because the data sources did not 
+only have different countries, but also different country names we had to do some data preprocessing. The main part was generating ISO-3 country codes for every dataset. 
+We decided on not averaging the missing values, but instead using the data as it is.
