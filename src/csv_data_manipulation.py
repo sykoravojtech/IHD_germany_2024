@@ -26,7 +26,7 @@ def melt_all_year_cols_into_one(input_file: str = None, df: pd.DataFrame = None,
         input_file: if no dataframe is given, the function will load the dataframe from this file
         output_file: if given, saves the dataframe to this file
         df: dataframe
-        replace_dots: True if want to replace '..' with zero
+        replace_dots: True if want to replace '..' with NaN
         remove_nan: removes all rows with NaN in Value column 
         one_series: (Column name, value name) - the rows of this value will be othe only ones that stay in the dataframe
         remove_cols: list of columns to remove
