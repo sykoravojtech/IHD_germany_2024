@@ -27,6 +27,7 @@ and show exploratory analysis of the data. We will also explain the methods we u
 % \end{figure}
 
 \subsection{Cardiovascular data}\label{sec:cardiovascular_data}
+
 The first step in our analysis was to find out whether cardiovascular diseases are a problem in Germany. We used the data from the Global Burden of Disease study \citep{GBD2019}
 to compare the incidence and death rate of cardiovascular diseases in Germany to other high-income countries and the world. The data also contains 
 the incidence and death rate for specific age groups which we used to compare the age distribution of cardiovascular diseases in Germany to other countries.
@@ -61,6 +62,13 @@ cardiovascular diseases in Germany.
 \end{figure}
 
 \subsection{Data sources for factors}\label{sec:data_sources}
+\begin{figure*}[ht]
+    \vskip 0.2in
+    \centering
+    \centerline{\includegraphics[]{fig/fig_factor_analysis.pdf}}
+    \caption{Factor analysis. From left to right: alcohol consumption, fat consumption, and health expenditure. }
+    \label{Factor analysis}
+\end{figure*}
 Our next step was to use different data sources to find out the underlying factors that have an effect on the incidence rate of ischemic heart disease. We looked at some of 
 the most common risk factors: alcohol consumption and fat consumption. We also included health expenditure as a proxy for the quality of healthcare. Because of the 
 distribution of incidence rate depending on age, as shown in \figurename~\ref{Cardiovascular diseases for age groups}, we also included the median age of the population as a 
@@ -105,15 +113,6 @@ For the rest of the project we merged the data sources into one dataset, with th
 only have different countries, but also different country names we had to do some data preprocessing. The main part was generating ISO-3 country codes for every dataset. 
 We decided on not averaging the missing values, but instead using the data as it is.
 
-
-
-\begin{figure*}[ht]
-    \vskip 0.2in
-    \centering
-    \centerline{\includegraphics[]{fig/fig_factor_analysis.pdf}}
-    \caption{Factor analysis. From left to right: alcohol consumption, fat consumption, and health expenditure. }
-    \label{Factor analysis}
-\end{figure*}
 
 The factors we chose not only reflect the well-known factors of CVDs, but also reflect Germany's culture. High alcohol consumption mainly in the form of beer and high fat consumption such as in a Bratwurst are what most of the world knows about this nation. But how out of the ordinary is this behaviour in Germany compared to the rest of the world and other high-income countries? Is Germany's culture pushing them towards a quicker death?
 
