@@ -3,10 +3,16 @@
 % but leave interpretation and opinion to the next section. This section absoultely \emph{has} to include at least two figures.
 
 
+To model the death rate of ischemic heart disease we tried using a linear model with different transformations of the data, but the results were not satisfactory.
+Because of this, we decided to use random forest regression. 
+We used the \texttt{RandomForestRegressor} from the \texttt{scikit-learn} library \citep{scikit-learn} with grid search to find the best parameters. Our best model had the 
+$R^2$ score of $\approx0.82$ on the test set, while the $R^2$ score of the linear model was $\approx0.39$. The value represents the proportion of the variance that 
+is explained by the model. We interpret the model using the SHAP (SHapley Additive exPlanations) values \citep{NIPS2017_7062} (see Figure \ref{shap_values}). SHAP values 
+show how the impact of a feature on the model's output. 
 \begin{figure}[ht]
     \vskip 0.2in
     \begin{center}
-    \centerline{\includegraphics[width=\columnwidth]{fig/shap_values_summary.pdf}}
+    \centerline{\includegraphics[width=\columnwidth]{fig/fig_shap_values_summary.pdf}}
     \caption{Summary of SHAP values for a predictive model of disease death rate. 
     Each dot's color represents the feature's value (red high, blue low), and its position represents the impact on the model's output.
     The impact is measured by the SHAP value, which represents the feature's contribution to a change in the model's output.}
@@ -14,14 +20,6 @@
     \end{center}
     \vskip -0.2in
 \end{figure}
-
-To model the death rate of ischemic heart disease we tried using a linear model with different transformations of the data, but the results were not satisfactory.
-Because of this, we decided to use random forest regression. 
-We used the \texttt{RandomForestRegressor} from the \texttt{scikit-learn} library \citep{scikit-learn} with grid search to find the best parameters. Our best model had the 
-$R^2$ score of $\approx0.82$ on the test set, while the $R^2$ score of the linear model was $\approx0.39$. The value represents the proportion of the variance that 
-is explained by the model. We interpret the model using the SHAP (SHapley Additive exPlanations) values \citep{NIPS2017_7062} (see Figure \ref{shap_values}). SHAP values 
-show how the impact of a feature on the model's output. The color gradient from pink to blue indicates the feature's value from low to high, 
-showing how each feature contributes differently based on its value.
 
 \begin{figure*}[ht]
     \vskip 0.2in
@@ -36,5 +34,5 @@ We can see that the effect of fat consumption is mixed and not very easy to inte
 (Healthcare spending, alcohol consumption, and median age) is more clear. For that reason, we decided to use only those three features in our final plot 
 (see Figure \ref{bubble_plot_factors}) in which we show the combined effect of the three features on the death rate. The median age is divided into three groups, under 19, 19-38, and over 38. The size of the bubble represents the age group. The position of the bubble represents the healthcare spending and the alcohol consumption. The color represents the death rate from IHDs.
 Counries with higher alcohol consumption (on the right) appear to have higher death rates.
-It is clear that Germany is among the highest investors in healthcare, but it is also among the countries with the highest alcohol consumption. The median age is in the third group.
+Larger bubbles (older populations) and bubbles on the right (higher alcohol consumption) appear to have higher death rates, which is consistent with the SHAP values.
 
