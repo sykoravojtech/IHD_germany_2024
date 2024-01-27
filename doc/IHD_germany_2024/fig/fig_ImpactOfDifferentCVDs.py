@@ -57,7 +57,7 @@ for i, bar in enumerate(barplot.patches):
              ha=ha_alignment,
              color=label_color)
     
-plt.title('Impact of Different Cardiovascular Diseases')
+plt.title('Impact of Different Cardiovascular Diseases (Germany)')
 plt.xlabel('Death rate')
 plt.ylabel('Cause of death')
 
