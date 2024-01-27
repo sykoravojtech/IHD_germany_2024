@@ -7,7 +7,6 @@ from tueplots import bundles
 from tueplots.constants.color import rgb
 
 DATA_PATH = "data/raw/"
-OUTPUT_PATH = 'doc/IHD_germany_2024/fig'
 
 # Create a linear segmented colormap
 custom_cmap = LinearSegmentedColormap.from_list("tue_red_blue", [rgb.tue_red, rgb.tue_blue])
@@ -62,4 +61,4 @@ plt.title('Impact of Different Cardiovascular Diseases (Germany)')
 plt.xlabel('Death rate')
 plt.ylabel('Cause of death')
 
-plt.savefig(f'{OUTPUT_PATH}/fig_ImpactOfDifferentCVDs.pdf')
+plt.savefig(f'fig_ImpactOfDifferentCVDs.pdf')
