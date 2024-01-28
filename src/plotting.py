@@ -4,10 +4,14 @@ plotting.py
 This file has general functions for plotting data used in the project.
 """
 
+from typing import List
+
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
 from tueplots import bundles
 from tueplots.constants.color import rgb
+from matplotlib.colors import LinearSegmentedColormap
 
 
 def plot_value_per_year_GER_HIC_GLO(df: pd.DataFrame, ax: plt.axes = None, value_column: str = "Value", year_column: str = "Year", 
@@ -173,3 +177,101 @@ def plot_comparison_GER_HIC_GLO(df: pd.DataFrame, value_column: str = "Value", y
 
     if output_fig_path:
         plt.savefig(output_fig_path)
+
+
+cmap_colors = [
+    (0.0, rgb.tue_blue),
+    (0.5, rgb.tue_orange),
+    (1.0, rgb.tue_red)
+]
+
+# Create a colormap object
+custom_cmap = LinearSegmentedColormap.from_list('custom_cmap', cmap_colors)
+
+
+def bubble_plot_factors_and_rates(input_df:pd.DataFrame, x_col:str, y_col:str, size_col:str, hue_col:str, country_col:str,
+                                x_label:str, y_label:str, size_label:str, hue_label:str,
+                                title:str, output_path:str, white_list:List[str]=['Germany', 'High-income', 'Global']):
+    '''
+    Make the bubble plots with 4 dimensions (x, y, bubble radius, hue)
+    
+    Args:
+        input_df (pd.DataFrame): input dataframe contains 4 columns of values, 1 column for countries 
+        x_col (str): name of the column in x dim
+        y_col (str): name of the column in y dim
+        size_col (str): name of the column in bubble size dim
+        hue_col (str): name of the column in hue dim
+        country_col (str): name of the column denoting country names
+        x_label (str): label of x dim
+        y_label (str): label of y dim
+        size_label (str): label of bubble size dim
+        hue_label (str): label of hue dim (color)
+        title (str): title of the plot
+        output_path (str): path to save the figure
+        while_list (str): list of chosen countries the names of which to be displayed
+    
+    Returns:
+        None
+    '''
+    df = input_df.copy()
+    
+    plt.rcParams.update(bundles.icml2022(column="full", ncols=2, nrows=1))
+    
+    # rescale for more distinguishible display
+    df[size_col + '_rescaled'] = (df[size_col] - df[size_col].min()) * 3 
+
+    # divide size values into size bins by percentile
+    pct = [20, 50, 80]
+    legend_sizes = np.percentile(df[size_col + '_rescaled'], pct) 
+    def make_bin(x):
+        if x < legend_sizes[0]:
+                return legend_sizes[0]
+        if x < legend_sizes[2]:
+                return legend_sizes[1]
+        return legend_sizes[2]
+    df[size_col+'_bin'] = df[size_col + '_rescaled'].map(make_bin)
+
+    scatter = plt.scatter(df[x_col], 
+                        df[y_col], 
+                        s=df[size_col+'_bin'],
+                        alpha=0.4, c=df[hue_col], cmap=custom_cmap)
+
+    # Add labels for the x and y axes
+    plt.xlabel(x_label)
+    plt.ylabel(y_label)
+
+    coords = np.zeros(shape=(len(df), 2))
+
+    # Text position for countries
+    annotation = {'Germany':[12.5, 15], 'High-income':[7.5, 15], 'Global':[5, 15]}
+
+    lookup = df.set_index(country_col)[hue_col].to_dict()
+    
+    for i, row in df.iterrows():
+        if  row[country_col] in white_list:
+                size = 5 
+                ann_point = annotation[row[country_col]]
+                plt.text(ann_point[0], 
+                        ann_point[1], 
+                        s=row[country_col] + ': ' + str(round(lookup[row[country_col]])),
+                        size=size, horizontalalignment='center',
+                        verticalalignment='bottom')
+                plt.plot([row[x_col], ann_point[0]], [row[y_col], ann_point[1]], color='gray', linewidth=0.5)
+
+    plt.colorbar(scatter, label=hue_label)
+
+    legend_labels_int = [str(int(age)) for age in np.percentile(df[size_col], pct)]
+    legend_labels = [None, None, None]
+    legend_labels[0] = "under " + legend_labels_int[0]
+    legend_labels[1] = "from " + legend_labels_int[0] + " to " + legend_labels_int[2]
+    legend_labels[2] = "above " + legend_labels_int[2]
+
+    # Create a list of legend entries
+    legend_entries = [plt.scatter([], [], s=size, color='grey', label=label)
+                    for label, size in zip(legend_labels, legend_sizes)]
+    plt.legend(handles=legend_entries, title=size_label, ncol=3, loc='upper right')
+
+    plt.title(title)
+
+    plt.savefig(output_path)
+    plt.show()
