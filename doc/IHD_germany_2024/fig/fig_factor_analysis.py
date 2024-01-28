@@ -67,3 +67,4 @@ fig.legend(handles, labels, loc='upper right', ncol=3)
 # # fig.text(-0.015, 0.5, 'Rate', va='center', rotation='vertical', fontsize=16)
 
 plt.savefig(f'{OUTPUT_PATH}/fig_factor_analysis.pdf')
+plt.savefig(f'{OUTPUT_PATH}/fig_factor_analysis.jpg')

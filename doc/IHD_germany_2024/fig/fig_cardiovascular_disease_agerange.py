@@ -64,3 +64,4 @@ plt.title('Cardiovascular diseases by age group')
 plt.legend()
 
 plt.savefig(f'{OUTPUT_PATH}/fig_cardiovascular_disease_agerange.pdf')
+plt.savefig(f'{OUTPUT_PATH}/fig_cardiovascular_disease_agerange.jpg')

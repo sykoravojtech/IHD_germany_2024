@@ -1,6 +1,7 @@
 import os
 import sys
 import pandas as pd
+import matplotlib.pyplot as plt
 
 sys.path.append('.')
 
@@ -38,8 +39,9 @@ fat_df = pd.read_csv(DATA_PATH+'/daily_per_capita_fat_supply_final.csv')
 fat_df = fat_df.rename({'Value': 'Fat'}, axis=1).drop(['Country Name', 'Series Name'], axis=1)
 
 
-alc_df = pd.read_csv(DATA_PATH+'/wdi_AlcoholConsumption.csv')
-alc_df = alc_df.rename({'Value': 'Alcohol'}, axis=1).drop(['Country Name', 'Series Name'], axis=1)
+alc_df = pd.read_csv(RAW_DATA_PATH+'/alcohol_germany.csv')
+alc_df = alc_df[['LOCATION', 'TIME', 'Value']]
+alc_df.columns = ['Country Code', 'Year', 'Alcohol']
 
 
 age_df = pd.read_csv(RAW_DATA_PATH+'/median-age.csv')
@@ -49,22 +51,21 @@ age_df.columns = ['Country Code', 'Year', 'Age']
 
 final_df = df.merge(health_df, on=['Country Code', 'Year'])
 final_df = final_df.merge(alc_df, on=['Country Code', 'Year'])
-# final_df = final_df.merge(fat_df, on=['Country Code', 'Year'])
 final_df = final_df.merge(age_df, on=['Country Code', 'Year'])
 
 
 mean_df = final_df.groupby(['Country Name', 'Country Code'])[['IHD', 'HealthInd', 'Alcohol', 'Age']].last().reset_index()
-mean_df = generate_high_income_global_avg_index(mean_df, value_cols=['IHD', 'HealthInd', 'Alcohol', 'Age'], year_col=None)
-
 
 output_fig_path = OUTPUT_PATH + '/fig_bubble_plot_factors.pdf'
 bubble_plot_factors_and_rates(mean_df, x_col='Alcohol', y_col='HealthInd', size_col='Age', hue_col='IHD',
-                            x_label='Alcohol consumption (litter/day)', y_label='Health expenditure (\\% GDP)',
-                            size_label='Median population age', hue_label='Death rate (deaths per 1000 habitants)',
+                            x_label='Alcohol consumption (liters/day)', y_label='Health expenditure (\\% GDP)',
+                            size_label='Median population age', hue_label='Death rate (deaths per 100,000 habitants)',
                             country_col='Country Name',
                             title='Effect of alcohol consumption, health expenditure and median age on ischemic heart disease death rate, averaged from 1990 to 2019',
                             output_path=output_fig_path)
 
+output_fig_path = OUTPUT_PATH + '/fig_bubble_plot_factors.jpg'
+plt.savefig(output_fig_path)
 
 
 

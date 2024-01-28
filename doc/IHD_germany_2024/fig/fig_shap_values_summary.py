@@ -171,3 +171,5 @@ cb.ax.tick_params(length=0)
 cb.set_alpha(1)
 cb.outline.set_visible(False)
 plt.savefig(f'{OUTPUT_PATH}/fig_shap_values_summary.pdf')
+plt.savefig(f'{OUTPUT_PATH}/fig_shap_values_summary.jpg')
+

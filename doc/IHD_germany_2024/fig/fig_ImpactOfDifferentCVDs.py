@@ -61,4 +61,5 @@ plt.title('Impact of Different Cardiovascular Diseases (Germany)')
 plt.xlabel('Death rate')
 plt.ylabel('Cause of death')
 
-plt.savefig(f'fig_ImpactOfDifferentCVDs.pdf')
+plt.savefig(f'doc/IHD_germany_2024/fig/fig_ImpactOfDifferentCVDs.pdf')
+plt.savefig(f'doc/IHD_germany_2024/fig/fig_ImpactOfDifferentCVDs.jpg')
