@@ -21,11 +21,6 @@ https://docs.google.com/document/d/1u-LVvFSsDFmDl7H6Y-cFUUbPc1N2QNrFJSKC9aFDCZs/
 <div align="center">    
  
 # Health concerns in Germany  
-
-[![Paper](http://img.shields.io/badge/paper-arxiv.1001.2234-B31B1B.svg)](https://www.nature.com/articles/nature14539)
-[![Conference](http://img.shields.io/badge/NeurIPS-2019-4b44ce.svg)](https://papers.nips.cc/book/advances-in-neural-information-processing-systems-31-2018)
-[![Conference](http://img.shields.io/badge/ICLR-2019-4b44ce.svg)](https://papers.nips.cc/book/advances-in-neural-information-processing-systems-31-2018)
-[![Conference](http://img.shields.io/badge/AnyConference-year-4b44ce.svg)](https://papers.nips.cc/book/advances-in-neural-information-processing-systems-31-2018)  
 </div>
 
 <!-- TABLE OF CONTENTS -->
@@ -50,11 +45,37 @@ https://docs.google.com/document/d/1u-LVvFSsDFmDl7H6Y-cFUUbPc1N2QNrFJSKC9aFDCZs/
 </li> -->
  
 ## Goal of the Project
-goal of project
+This project aims to analyze Cardio Vascular Diseases (CVDs), one of the most common health concerns in Germany, from 1990 to 2019 and compare them with other developed countries. The focus is on the diseases and their influencing factors like healthcare systems and lifestyle indicators. It specifically examines the prevalence and statistical significance of diseases like ischemic heart disease using a permutation test. The goal is to understand the impact of lifestyle and healthcare on disease incidence in Germany, providing insights into the country's health risks compared to the global context. Both quantitative and qualitative analysis is used to obtain a conclusion on this problem.
 
 
 ## Description
-What it does. Summary of plots, tables... 
+#### Cardio Vascular Diseases over the years (1990-2019)
+![CVDs plot](doc/IHD_germany_2024/fig/fig_cardiovascular_disease_rate.jpg "Cardio Vascular Diseases Rate / Incidence / Ratio")
+Figure 1. Cardiovascular diseases in the world over time. From left to right: incidence rate, death rate, and the ratio of death rate to incidence rate. 
+
+#### Types of Cardio Vascular Diseases 
+![Different CVDs](doc/IHD_germany_2024/fig/fig_ImpactOfDifferentCVDs.jpg "Types of Cardio Vascular Diseases ")
+Figure 2. Death rate of different cardiovascular diseases only for
+Germany. Ischemic heart disease takes up majority of the deaths.
+
+#### Cardio Vascular Diseases by age group
+![Age group](doc/IHD_germany_2024/fig/fig_cardiovascular_disease_agerange.jpg "Cardio Vascular Diseases by age group")
+Figure 3. Average incidence rate of cardiovascular diseases for 10
+year age groups. The incidence rate is much higher for older age
+groups, but always the highest in Germany.
+
+#### Factor analysis
+![Factor analysis](doc/IHD_germany_2024/fig/fig_factor_analysis.jpg "Factor analysis")
+Figure 4. Factor analysis. From left to right: alcohol consumption, fat consumption, and health expenditure.
+
+#### SHAP Values
+![SHAP Values](doc/IHD_germany_2024/fig/fig_shap_values_summary.jpg "SHAP Values")
+Figure 5. Summary of SHAP values for a predictive model of dis-
+ease death rate. Each dot’s color represents the feature’s value, and its position represents the impact on the model’s output.
+
+#### Combined analysis of factors
+![Combined analysis of factors](doc/IHD_germany_2024/fig/fig_bubble_plot_factors.jpg "Combined analysis of factors")
+Figure 6. The combined effect of healthcare spending, alcohol consumption, and median age on the death rate of ischemic heart disease. Special emphasis to the comparison between Germany, high income countries, and the world.
 
 
 ## Repository structure
@@ -79,6 +100,32 @@ git clone https://github.com/sykoravojtech/IHD_germany_2024/
 cd IHD_germany_2024
 pip install -e .   
 pip install -r requirements.txt
+
+# data preprocessing
+python scripts/preprocess_data.py
+
+# data profiling (count countries, year range, missing values)
+python scripts/profile_data.py
+
+# make plots
+# Fig 1
+python doc/IHD_germany_2024/fig/fig_cardiovascular_disease_rate.py
+
+# Fig 2
+python doc/IHD_germany_2024/fig/fig_ImpactOfDifferentCVDs.py
+
+# Fig 3
+python doc/IHD_germany_2024/fig/fig_cardiovascular_disease_agerange.py
+
+# Fig 4
+python doc/IHD_germany_2024/fig/fig_ischemic_rate.py
+
+# Fig 5
+python doc/IHD_germany_2024/fig/fig_shap_values_summary.py
+
+# Fig 6
+python doc/IHD_germany_2024/fig/fig_bubble_plot_factors.py
+
 ```
 
 ## License
