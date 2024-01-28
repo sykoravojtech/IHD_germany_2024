@@ -19,9 +19,6 @@ DATA_PATH = "data/final/"
 DATA_PATH_RAW = "data/raw/"
 OUTPUT_PATH = 'doc/IHD_germany_2024/fig'
 
-
-plt.savefig("fig_ImpactOfDifferentCVDs.pdf")
-
 ihd_df = pd.read_csv(DATA_PATH + "gbd_IschemicHeartDisease_DeathsIncidence.csv")
 ihd_df.rename(columns={'year': 'Year'}, inplace=True)
 ihd_df = ihd_df[ihd_df['measure_name'] == 'Deaths']
@@ -75,7 +72,7 @@ combined_df.reset_index(drop=True, inplace=True)
 
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error, r2_score
-from sklearn.model_selection import train_test_split, cross_val_score, GridSearchCV
+from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline
 
@@ -168,7 +165,7 @@ plt.grid(True, axis='x', linestyle='--', alpha=0.5)
 m = cm.ScalarMappable(cmap=red_blue)
 m.set_array([0, 1])
 cb = plt.colorbar(m, ax=plt.gca(), ticks=[0, 1], aspect=20)
-cb.set_ticklabels(['High', 'Low'], fontsize=9)
+cb.set_ticklabels(['Low', 'High'], fontsize=9)
 cb.set_label('Feature Value', labelpad=0, fontsize=11)
 cb.ax.tick_params(length=0)
 cb.set_alpha(1)
