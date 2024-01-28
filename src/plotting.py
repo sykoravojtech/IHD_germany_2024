@@ -191,7 +191,8 @@ custom_cmap = LinearSegmentedColormap.from_list('custom_cmap', cmap_colors)
 
 def bubble_plot_factors_and_rates(input_df:pd.DataFrame, x_col:str, y_col:str, size_col:str, hue_col:str, country_col:str,
                                 x_label:str, y_label:str, size_label:str, hue_label:str,
-                                title:str, output_path:str, white_list:List[str]=['Germany', 'High-income', 'Global']):
+                                title:str, output_path:str, 
+                                white_list:List[str]=['Germany']):
     '''
     Make the bubble plots with 4 dimensions (x, y, bubble radius, hue)
     
@@ -218,10 +219,10 @@ def bubble_plot_factors_and_rates(input_df:pd.DataFrame, x_col:str, y_col:str, s
     plt.rcParams.update(bundles.icml2022(column="full", ncols=2, nrows=1))
     
     # rescale for more distinguishible display
-    df[size_col + '_rescaled'] = (df[size_col] - df[size_col].min()) * 3 
+    df[size_col + '_rescaled'] = (df[size_col] - df[size_col].min() + 1) * 6 - 30
 
     # divide size values into size bins by percentile
-    pct = [20, 50, 80]
+    pct = [20, 60, 95]
     legend_sizes = np.percentile(df[size_col + '_rescaled'], pct) 
     def make_bin(x):
         if x < legend_sizes[0]:
@@ -240,23 +241,33 @@ def bubble_plot_factors_and_rates(input_df:pd.DataFrame, x_col:str, y_col:str, s
     plt.xlabel(x_label)
     plt.ylabel(y_label)
 
-    coords = np.zeros(shape=(len(df), 2))
-
     # Text position for countries
-    annotation = {'Germany':[12.5, 15], 'High-income':[7.5, 15], 'Global':[5, 15]}
+    annotation = {'Germany':[11, 14]}
 
     lookup = df.set_index(country_col)[hue_col].to_dict()
+
+    blacklist = ['Iceland', 'South Africa', 'Croatia', 'United Kingdom', 'Brazil', 'Australia', 'Sweden',
+                'Netherland', 'Argentina', 'Russian Federation', 'Lithuania', 'Bulgaria', 'Hungary',
+                ]
     
     for i, row in df.iterrows():
+        size = 5
         if  row[country_col] in white_list:
-                size = 5 
                 ann_point = annotation[row[country_col]]
-                plt.text(ann_point[0], 
-                        ann_point[1], 
-                        s=row[country_col] + ': ' + str(round(lookup[row[country_col]])),
-                        size=size, horizontalalignment='center',
-                        verticalalignment='bottom')
-                plt.plot([row[x_col], ann_point[0]], [row[y_col], ann_point[1]], color='gray', linewidth=0.5)
+                if row[country_col] in annotation:
+                    plt.text(ann_point[0], 
+                            ann_point[1], 
+                            s=row[country_col] + ': ' + str(round(lookup[row[country_col]])),
+                            size=size, horizontalalignment='center',
+                            verticalalignment='bottom')
+                    plt.plot([row[x_col], ann_point[0]], [row[y_col], ann_point[1]], color='gray', linewidth=0.5)
+        elif row[country_col] not in blacklist:
+            plt.text(row[x_col]-0.25, 
+                    row[y_col]+0.5, 
+                    s=row[country_col],
+                    size=size)
+
+    plt.scatter([12], [17], s=0.001)
 
     plt.colorbar(scatter, label=hue_label)
 
@@ -269,9 +280,9 @@ def bubble_plot_factors_and_rates(input_df:pd.DataFrame, x_col:str, y_col:str, s
     # Create a list of legend entries
     legend_entries = [plt.scatter([], [], s=size, color='grey', label=label)
                     for label, size in zip(legend_labels, legend_sizes)]
-    plt.legend(handles=legend_entries, title=size_label, ncol=3, loc='upper right')
+    plt.legend(handles=legend_entries, title=size_label, ncol=3, loc='upper left')
 
     plt.title(title)
 
     plt.savefig(output_path)
-    plt.show()
+    # plt.show()
