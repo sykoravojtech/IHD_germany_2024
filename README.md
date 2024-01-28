@@ -51,30 +51,36 @@ This project aims to analyze Cardio Vascular Diseases (CVDs), one of the most co
 ## Description
 #### Cardio Vascular Diseases over the years (1990-2019)
 ![CVDs plot](doc/IHD_germany_2024/fig/fig_cardiovascular_disease_rate.jpg "Cardio Vascular Diseases Rate / Incidence / Ratio")
+
 Figure 1. Cardiovascular diseases in the world over time. From left to right: incidence rate, death rate, and the ratio of death rate to incidence rate. 
 
 #### Types of Cardio Vascular Diseases 
 ![Different CVDs](doc/IHD_germany_2024/fig/fig_ImpactOfDifferentCVDs.jpg "Types of Cardio Vascular Diseases ")
+
 Figure 2. Death rate of different cardiovascular diseases only for
 Germany. Ischemic heart disease takes up majority of the deaths.
 
 #### Cardio Vascular Diseases by age group
 ![Age group](doc/IHD_germany_2024/fig/fig_cardiovascular_disease_agerange.jpg "Cardio Vascular Diseases by age group")
+
 Figure 3. Average incidence rate of cardiovascular diseases for 10
 year age groups. The incidence rate is much higher for older age
 groups, but always the highest in Germany.
 
 #### Factor analysis
 ![Factor analysis](doc/IHD_germany_2024/fig/fig_factor_analysis.jpg "Factor analysis")
+
 Figure 4. Factor analysis. From left to right: alcohol consumption, fat consumption, and health expenditure.
 
 #### SHAP Values
 ![SHAP Values](doc/IHD_germany_2024/fig/fig_shap_values_summary.jpg "SHAP Values")
+
 Figure 5. Summary of SHAP values for a predictive model of dis-
 ease death rate. Each dot’s color represents the feature’s value, and its position represents the impact on the model’s output.
 
 #### Combined analysis of factors
 ![Combined analysis of factors](doc/IHD_germany_2024/fig/fig_bubble_plot_factors.jpg "Combined analysis of factors")
+
 Figure 6. The combined effect of healthcare spending, alcohol consumption, and median age on the death rate of ischemic heart disease. Special emphasis to the comparison between Germany, high income countries, and the world.
 
 
