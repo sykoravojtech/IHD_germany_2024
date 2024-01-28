@@ -1,4 +1,5 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 
 import sys
 from pathlib import Path
@@ -20,6 +21,4 @@ plot_comparison_GER_HIC_GLO(df=df, year_column=YEAR_COLUMN_NAME, value_column=VA
                             title='Cardiovascular disease rate', country_column='location_name', indicator1='Incidence', 
                             indicator2='Deaths', indicator_column='measure_name', xlabel='Year', ylabel='Rate per 100,000')
 
-plot_comparison_GER_HIC_GLO(df=df, year_column=YEAR_COLUMN_NAME, value_column=VALUE_COLUMN_NAME, output_fig_path=f'{OUTPUT_PATH}/fig_cardiovascular_disease_rate.jpg',
-                            title='Cardiovascular disease rate', country_column='location_name', indicator1='Incidence', 
-                            indicator2='Deaths', indicator_column='measure_name', xlabel='Year', ylabel='Rate per 100,000')                        
+plt.savefig(f'{OUTPUT_PATH}/fig_cardiovascular_disease_rate.jpg')
