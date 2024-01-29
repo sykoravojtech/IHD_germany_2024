@@ -51,16 +51,19 @@ bar_width = 0.2
 for i, (country, color) in enumerate(color_scheme.items()):
     country_df = df[df['location_name'] == country]
     
+    total_incidence = country_df['val'].sum()  # Calculate the total incidence rate for the country
+    
     x = np.arange(len(age_groups))
-    plt.bar(x + i * bar_width, country_df['val'], width=bar_width, color=color, label=country)
-
+    plt.bar(x + i * bar_width, country_df['val'] / total_incidence * 100, width=bar_width, color=color, label=country)  # Calculate the percentage
+    
 plt.xticks(np.arange(len(age_groups)) + (len(color_scheme) * bar_width) / 2, age_groups)
 
 plt.xlabel('Age group')
-plt.ylabel('Incidence rate')
+plt.ylabel('Incidence (\%)')
 
-plt.yticks([])
-plt.title('Cardiovascular diseases by age group')
+plt.yticks([0, 10, 20, 30])  # Set the yticks to 0, 10, 20, 30
+
+plt.title('Cardiovascular diseases by age group, average 1990-2019')
 plt.legend()
 
 plt.savefig(f'{OUTPUT_PATH}/fig_cardiovascular_disease_agerange.pdf')
