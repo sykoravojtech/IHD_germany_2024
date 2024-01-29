@@ -4,8 +4,7 @@
 
 To model the death rate of ischemic heart disease we tried using a linear model with different transformations of the data, but the results were not satisfactory.
 Because of this, we decided to use random forest regression. 
-We used the \texttt{RandomForestRegressor} from the \texttt{scikit-learn} library \citep{scikit-learn} with grid search to find the best parameters. 
-\begin{figure}[ht]
+\begin{figure}[h]
     \vskip 0.2in
     \begin{center}
     \centerline{\includegraphics[width=\columnwidth]{fig/fig_shap_values_summary.pdf}}
@@ -15,6 +14,7 @@ We used the \texttt{RandomForestRegressor} from the \texttt{scikit-learn} librar
     \end{center}
     \vskip -0.2in
 \end{figure}
+
 \begin{figure*}[ht]
     \vskip 0.2in
     \centering
@@ -23,19 +23,15 @@ We used the \texttt{RandomForestRegressor} from the \texttt{scikit-learn} librar
         emphasis to the comparison between Germany, high income countries, and the world.}
     \label{bubble_plot_factors}
 \end{figure*}
-Our best model had the 
-$R^2$ score of $\approx0.82$ on the test set, while the $R^2$ score of the linear model was $\approx0.39$. The value represents the proportion of the variance that 
+We used the \texttt{RandomForestRegressor} from the \texttt{scikit-learn} library \citep{scikit-learn} with grid search to find the best parameters. 
+Our best model had the $R^2$ score of $\approx0.82$ on the test set, while the $R^2$ score of the linear model was $\approx0.39$. The value represents the proportion of the variance that 
 is explained by the model. We interpret the model using the SHAP (SHapley Additive exPlanations) values \citep{NIPS2017_7062} (see Figure \ref{shap_values}). SHAP values 
 show how the impact of a feature on the model's output. 
 
 
-
-
-
-
 We can see that the effect of fat consumption is mixed and not very easy to interpret. The effect of the other three features 
 (Healthcare spending, alcohol consumption, and median age) is more clear. For that reason, we decided to use only those three features in our final plot 
-(see Figure \ref{bubble_plot_factors}) in which we show the combined effect of the three features on the death rate. The median age is divided into three groups, under 19, 19-38, and over 38. The size of the bubble represents the age group. The position of the bubble represents the healthcare spending and the alcohol consumption. The color represents the death rate from ischemic heart diseases.
-Counries with higher alcohol consumption (on the right) appear to have higher death rates.
-Larger bubbles (older populations) and bubbles on the right (higher alcohol consumption) appear to have higher death rates, which is consistent with the SHAP values.
-
+(see Figure \ref{bubble_plot_factors}) in which we show the combined effect of the three features on the death rate. The median age 
+is represented by the size of the bubble, healthcare spending by the y axis, alcohol consumption by the x axis, and the color represents the death rate.
+We see that countries more towards the right (higher alcohol consumption) have a higher death rate. It is also clear that the countries with 
+the lowest death rate are the ones represented by the smallest bubbles (lowest median age).

@@ -24,9 +24,10 @@ In \figurename~\ref{Cardiovascular diseases over time} we can see that Germany h
     \label{Cardiovascular diseases over time}
 \end{figure*}
 
-We performed a permutation test to check whether the incidence rate in Germany is statistically significant. In the test, we compared the average incidence rate from 1990 to 2019 of Germany to the average incidence rate of the world. With over a million permutations, we found that the p-value is $\approx 0.045$. When using the standard threshold of 0.05, our p-value would be judged as statistically significant.
+We performed a permutation test to check whether the incidence rate in Germany is statistically significant. In the test, we compared the average incidence rate from 1990 to 2019 of Germany to the average incidence rate of the world. With over a million permutations, we found that the p-value is $\approx 0.045$. When using the standard threshold of 0.05, this p-value would be judged as statistically significant.
 In the plot on the right we can also see that the ratio of death rate to incidence rate is much more similar. There appears to be no major difference between the global average and the average of 
-high-income countries, which should have a better healthcare system. This suggests that the effect of the quality of healthcare on the ratio is not very significant.
+high-income countries, which should have a better healthcare system. This suggests that the effect of the quality of healthcare on the ratio is not very significant. In the entire report, we used the same grouping of high-income countries
+as the Global Burden of Disease study. It is based on gross national income per capita and is available at \href{https://datahelpdesk.worldbank.org/knowledgebase/articles/906519-world-bank-country-and-lending-groups}{the world bank website}. 
 
 Since cardiovascular diseases are a group of diseases, we wanted to delve deeper and explored the most common cardiovascular diseases in Germany. The top two are ischemic heart disease and stroke (\figurename~\ref{Impact of Different CVDs}). 
 We found out that the incidence rate of ischemic heart disease in Germany is also very high, as shown in \href{https://github.com/sykoravojtech/IHD_germany_2024/blob/main/doc/IHD_germany_2024/fig/fig_ischemic_rate.pdf}{its plot}.
@@ -59,7 +60,17 @@ distribution of incidence rate depending on age, as shown in \figurename~\ref{Ca
     \vskip -0.2in
 \end{figure}
 
-The biggest obstacle was the lack of data that is available for all countries over a long time period. For different factors we had to use different data sources.
+The biggest obstacle was the lack of data that is available for all countries over a long time period. 
+
+
+\begin{figure*}[ht]
+    \vskip 0.2in
+    \centering
+    \centerline{\includegraphics[]{fig/fig_factor_analysis.pdf}}
+    \caption{Factor analysis. From left to right: alcohol consumption, fat consumption, and health expenditure. }
+    \label{Factor analysis}
+\end{figure*}
+For different factors we had to use different data sources.
 The data for health expenditure (as percentage of GDP) and alcohol consumption (liters of pure alcohol per person aged 15 and older) was taken from \citet{oecd}. 
 The data for population age is from \citet{age}, while the data for fat consumption (grams per person per day) is from \citet{fat_consumption}. The data varies in the time period it covers,
 the number of countries it contains, and the number of missing values, as shown in \tablename~\ref{Data overview}. We used the data from 1990 to 2019, which is the time period
@@ -82,13 +93,7 @@ that is available for the diseases.
     \end{tabular}
 \end{table}
 
-\begin{figure*}[ht]
-    \vskip 0.2in
-    \centering
-    \centerline{\includegraphics[]{fig/fig_factor_analysis.pdf}}
-    \caption{Factor analysis. From left to right: alcohol consumption, fat consumption, and health expenditure. }
-    \label{Factor analysis}
-\end{figure*}
+
 
 We made animations and visualizations of the data with enough data points as part of the exploratory analysis. The animations are available at \url{INSERT URL}. 
 
@@ -97,6 +102,6 @@ We decided on not averaging the missing values, but instead filtering them out.
 
 The factors we chose not only reflect the well-known factors of cardiovascular diseases, but also reflect Germany's culture. High alcohol consumption mainly in the form of beer and high fat consumption such as in a Bratwurst are what most of the world knows about this nation. But how out of the ordinary is this behaviour in Germany compared to the rest of the world and other high-income countries? Is Germany's culture pushing them towards a quicker death?
 
-In \figurename~\ref{Factor analysis} in the leftmost plot we can see alcohol consumption per capita in liters. While it has been on a steady decline since the 1970s, Germany still stays far beyond the global and high-income averages. This decline in alcohol consumption is potentially indicative of successful public health interventions, policy reforms, and changing social norms towards alcohol usage within the country. The middle plot presents the trends in fat supply per capita in grams per day. All three highlighted lines show that the trend is gradually increasing while keeping Germany on top. The rightmost plot illustrates health expenditure in USD per capita, where all three cohorts show a substantial increase over the six-decade span.
+In \figurename~\ref{Factor analysis} in the leftmost plot we can see alcohol consumption per capita in liters. While it has been on a steady decline since the 1970s, Germany still stays far beyond the global and high-income averages. This decline in alcohol consumption is potentially indicative of successful public health interventions, policy reforms, and changing social norms towards alcohol usage within the country. The middle plot presents the trends in fat supply per capita in grams per day. All three highlighted lines show that the trend is gradually increasing while keeping Germany on top. The rightmost plot illustrates health expenditure in USD per capita, where all three cohorts show a substantial increase over the five-decade span.
 
 Alcohol consumption and health spending align with the overarching trend that Germany is trying to diminish the burden from cardiovascular diseases; however, fat consumption seems to go against it. Nevertheless, seeing a difference between two lines does not give a solid view on how each factor truly affects the incidence or death rate which is where the results section comes in.
