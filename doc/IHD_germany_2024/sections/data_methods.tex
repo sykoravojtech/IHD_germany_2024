@@ -32,6 +32,8 @@ as the Global Burden of Disease study. It is based on gross national income per 
 Since cardiovascular diseases are a group of diseases, we wanted to delve deeper and explored the most common cardiovascular diseases in Germany. The top two are ischemic heart disease and stroke (\figurename~\ref{Impact of Different CVDs}). 
 We found out that the incidence rate of ischemic heart disease in Germany is also very high, as shown in \href{https://github.com/sykoravojtech/IHD_germany_2024/blob/main/doc/IHD_germany_2024/fig/fig_ischemic_rate.pdf}{its plot}.
 The incidence rate of stroke in Germany is way more similar to the global average, as shown in \href{https://github.com/sykoravojtech/IHD_germany_2024/blob/main/doc/IHD_germany_2024/fig/fig_stroke_rate.pdf}{its plot}. This suggests that ischemic heart disease is the main cause of the high incidence rate of cardiovascular diseases in Germany.
+We also made animations for the change in disease rate over time. It is available at \href{https://github.com/sykoravojtech/IHD_germany_2024/tree/main/exp/output/animations}{this link}.
+
 
 \begin{figure}[ht]
     \vskip 0.2in
@@ -94,8 +96,6 @@ that is available for the diseases.
 \end{table}
 
 
-
-We made animations for the change in disease rate over time. It is available at \href{https://github.com/sykoravojtech/IHD_germany_2024/tree/main/exp/output/animations}{this link}.
 
 For the rest of the project we merged the data sources into one dataset, with the goal of modeling the death rate of ischemic heart disease. Because the data sources did not only have different countries, but also different country names we had to do some data preprocessing. The main part was generating ISO-3 country codes for every dataset. 
 We decided on not averaging the missing values, but instead filtering them out.
