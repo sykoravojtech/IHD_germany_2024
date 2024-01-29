@@ -15,10 +15,6 @@ The first step in our analysis was to find out whether cardiovascular diseases a
 to compare the incidence and death rate of cardiovascular diseases in Germany to other high-income countries and the world. The data also contains 
 the incidence and death rate for specific age groups which we used to compare the age distribution of cardiovascular diseases in Germany to other countries.
 In \figurename~\ref{Cardiovascular diseases over time} we can see that Germany has very high incidence and death rate of cardiovascular diseases. 
-We performed a permutation test to check whether the incidence rate in Germany is statistically significant. In the test, we compared the average incidence rate from 1990 to 2019 of Germany to the average incidence rate of the world. With over a million permutations, we found that the p-value is $\approx 0.045$. When using the standard threshold of 0.05, our p-value would be judged as statistically significant.
-In the plot on the right we can also see that the ratio of death rate to incidence rate is much more similar. There appears to be no major difference between the global average and the average of 
-high-income countries, which should have a better healthcare system. This suggests that the effect of the quality of healthcare on the ratio is not very significant.
-
 \begin{figure*}[h]
     \vskip 0.2in
     \centering
@@ -27,6 +23,10 @@ high-income countries, which should have a better healthcare system. This sugges
     and the ratio of death rate to incidence rate.}
     \label{Cardiovascular diseases over time}
 \end{figure*}
+
+We performed a permutation test to check whether the incidence rate in Germany is statistically significant. In the test, we compared the average incidence rate from 1990 to 2019 of Germany to the average incidence rate of the world. With over a million permutations, we found that the p-value is $\approx 0.045$. When using the standard threshold of 0.05, our p-value would be judged as statistically significant.
+In the plot on the right we can also see that the ratio of death rate to incidence rate is much more similar. There appears to be no major difference between the global average and the average of 
+high-income countries, which should have a better healthcare system. This suggests that the effect of the quality of healthcare on the ratio is not very significant.
 
 Since cardiovascular diseases are a group of diseases, we wanted to delve deeper and explored the most common cardiovascular diseases in Germany. The top two are ischemic heart disease and stroke (\figurename~\ref{Impact of Different CVDs}). 
 We found out that the incidence rate of ischemic heart disease in Germany is also very high, as shown in \href{https://github.com/sykoravojtech/IHD_germany_2024/blob/main/doc/IHD_germany_2024/fig/fig_ischemic_rate.pdf}{its plot}.

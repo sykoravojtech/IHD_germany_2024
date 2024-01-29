@@ -4,11 +4,7 @@
 
 To model the death rate of ischemic heart disease we tried using a linear model with different transformations of the data, but the results were not satisfactory.
 Because of this, we decided to use random forest regression. 
-We used the \texttt{RandomForestRegressor} from the \texttt{scikit-learn} library \citep{scikit-learn} with grid search to find the best parameters. Our best model had the 
-$R^2$ score of $\approx0.82$ on the test set, while the $R^2$ score of the linear model was $\approx0.39$. The value represents the proportion of the variance that 
-is explained by the model. We interpret the model using the SHAP (SHapley Additive exPlanations) values \citep{NIPS2017_7062} (see Figure \ref{shap_values}). SHAP values 
-show how the impact of a feature on the model's output. 
-
+We used the \texttt{RandomForestRegressor} from the \texttt{scikit-learn} library \citep{scikit-learn} with grid search to find the best parameters. 
 \begin{figure}[ht]
     \vskip 0.2in
     \begin{center}
@@ -19,8 +15,6 @@ show how the impact of a feature on the model's output.
     \end{center}
     \vskip -0.2in
 \end{figure}
-
-
 \begin{figure*}[ht]
     \vskip 0.2in
     \centering
@@ -29,6 +23,15 @@ show how the impact of a feature on the model's output.
         emphasis to the comparison between Germany, high income countries, and the world.}
     \label{bubble_plot_factors}
 \end{figure*}
+Our best model had the 
+$R^2$ score of $\approx0.82$ on the test set, while the $R^2$ score of the linear model was $\approx0.39$. The value represents the proportion of the variance that 
+is explained by the model. We interpret the model using the SHAP (SHapley Additive exPlanations) values \citep{NIPS2017_7062} (see Figure \ref{shap_values}). SHAP values 
+show how the impact of a feature on the model's output. 
+
+
+
+
+
 
 We can see that the effect of fat consumption is mixed and not very easy to interpret. The effect of the other three features 
 (Healthcare spending, alcohol consumption, and median age) is more clear. For that reason, we decided to use only those three features in our final plot 
