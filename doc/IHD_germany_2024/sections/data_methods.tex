@@ -29,13 +29,7 @@ In the plot on the right we can also see that the ratio of death rate to inciden
 high-income countries, which should have a better healthcare system. This suggests that the effect of the quality of healthcare on the ratio is not very significant. In the entire report, we used the same grouping of high-income countries
 as the Global Burden of Disease study. It is based on gross national income per capita and is available at \href{https://datahelpdesk.worldbank.org/knowledgebase/articles/906519-world-bank-country-and-lending-groups}{the world bank website}. 
 
-Since cardiovascular diseases are a group of diseases, we wanted to delve deeper and explored the most common cardiovascular diseases in Germany. The top two are ischemic heart disease and stroke (\figurename~\ref{Impact of Different CVDs}). 
-We found out that the incidence rate of ischemic heart disease in Germany is also very high, as shown in \href{https://github.com/sykoravojtech/IHD_germany_2024/blob/main/doc/IHD_germany_2024/fig/fig_ischemic_rate.pdf}{its plot}.
-The incidence rate of stroke in Germany is way more similar to the global average, as shown in \href{https://github.com/sykoravojtech/IHD_germany_2024/blob/main/doc/IHD_germany_2024/fig/fig_stroke_rate.pdf}{its plot}. This suggests that ischemic heart disease is the main cause of the high incidence rate of cardiovascular diseases in Germany.
-We also made animations for the change in disease rate over time. It is available at \href{https://github.com/sykoravojtech/IHD_germany_2024/tree/main/exp/output/animations}{this link}.
-
-
-\begin{figure}[ht]
+\begin{figure}[h]
     \vskip 0.2in
     \begin{center}
     \centerline{\includegraphics[width=\columnwidth]{fig/fig_ImpactOfDifferentCVDs.pdf}}
@@ -45,13 +39,21 @@ We also made animations for the change in disease rate over time. It is availabl
     \vskip -0.2in
 \end{figure}
 
+Since cardiovascular diseases are a group of diseases, we wanted to delve deeper and explored the most common cardiovascular diseases in Germany. The top two are ischemic heart disease and stroke (\figurename~\ref{Impact of Different CVDs}). 
+We found out that the incidence rate of ischemic heart disease in Germany is also very high, as shown in \href{https://github.com/sykoravojtech/IHD_germany_2024/blob/main/doc/IHD_germany_2024/fig/fig_ischemic_rate.pdf}{its plot}.
+The incidence rate of stroke in Germany is way more similar to the global average, as shown in \href{https://github.com/sykoravojtech/IHD_germany_2024/blob/main/doc/IHD_germany_2024/fig/fig_stroke_rate.pdf}{its plot}. This suggests that ischemic heart disease is the main cause of the high incidence rate of cardiovascular diseases in Germany.
+We also made animations for the change in disease rate over time. They are available at \href{https://github.com/sykoravojtech/IHD_germany_2024/tree/main/exp/output/animations}{this link}.
+
+
+
+
 % SUBSECTION
 \subsection{Data sources for factors}\label{sec:data_sources}
 
 Our next step was to use different data sources to find out the underlying factors that have an effect on the incidence rate of ischemic heart disease. We looked at some of the most common risk factors: alcohol consumption and fat consumption. We also included health expenditure as a proxy for the quality of healthcare. Because of the 
 distribution of incidence rate depending on age, as shown in \figurename~\ref{Cardiovascular diseases for age groups}, we also included the median age of the population as a factor.
 
-\begin{figure}[ht]
+\begin{figure}[h]
     \vskip 0.2in
     \begin{center}
     \centerline{\includegraphics[width=\columnwidth]{fig/fig_cardiovascular_disease_agerange.pdf}}
