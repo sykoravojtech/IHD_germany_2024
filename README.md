@@ -20,7 +20,7 @@ https://docs.google.com/document/d/1u-LVvFSsDFmDl7H6Y-cFUUbPc1N2QNrFJSKC9aFDCZs/
 
 <div align="center">    
  
-# Health concerns in Germany  
+# Heart of the Matter: A Deep Dive into Germany's Cardiovascular Diseases 
 </div>
 
 <!-- TABLE OF CONTENTS -->
