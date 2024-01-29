@@ -6,7 +6,3 @@
   - source (website)
   - brief description of what it includes
   - explanation of the columns
-
-# Target table format:
-- All the raw datasets should be transformed into a unified format with the following headers:
-Country Name|Country Code|Series Name|Year|Value
