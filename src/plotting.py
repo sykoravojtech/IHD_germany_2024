@@ -242,12 +242,12 @@ def bubble_plot_factors_and_rates(input_df:pd.DataFrame, x_col:str, y_col:str, s
     plt.ylabel(y_label)
 
     # Text position for countries
-    annotation = {'Germany':[11, 14]}
+    annotation = {'Germany':[10, 10]}
 
     lookup = df.set_index(country_col)[hue_col].to_dict()
 
     blacklist = ['Iceland', 'South Africa', 'Croatia', 'United Kingdom', 'Brazil', 'Australia', 'Sweden',
-                'Netherland', 'Argentina', 'Russian Federation', 'Lithuania', 'Bulgaria', 'Hungary',
+                'Netherland', 'Argentina', 'Russian Federation', 'Lithuania', 'Bulgaria', 'Hungary', 'Luxembourg'
                 ]
     
     for i, row in df.iterrows():
@@ -255,12 +255,12 @@ def bubble_plot_factors_and_rates(input_df:pd.DataFrame, x_col:str, y_col:str, s
         if  row[country_col] in white_list:
                 ann_point = annotation[row[country_col]]
                 if row[country_col] in annotation:
-                    plt.text(ann_point[0], 
-                            ann_point[1], 
+                    plt.text(row[x_col]+1, 
+                            row[y_col]+2500, 
                             s=row[country_col] + ': ' + str(round(lookup[row[country_col]])),
                             size=size, horizontalalignment='center',
                             verticalalignment='bottom')
-                    plt.plot([row[x_col], ann_point[0]], [row[y_col], ann_point[1]], color='gray', linewidth=0.5)
+                    plt.plot([row[x_col], row[x_col]+1], [row[y_col], row[y_col]+2500], color='gray', linewidth=0.5)
         elif row[country_col] not in blacklist:
             plt.text(row[x_col]-0.25, 
                     row[y_col]+0.5, 

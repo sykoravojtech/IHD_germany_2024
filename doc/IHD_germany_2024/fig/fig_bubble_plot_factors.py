@@ -12,7 +12,7 @@ from src.plotting import bubble_plot_factors_and_rates
 RAW_DATA_PATH = 'data/raw/'
 DATA_PATH = 'data/final/'
 OUTPUT_PATH = 'doc/IHD_germany_2024/fig'
-cvd_data_path = f'{DATA_PATH}/gbd_cardiovascular_allAges_final.csv'
+cvd_data_path = f'{DATA_PATH}/gbd_ischemicHeartDisease_DeathsIncidence.csv'
 YEAR_COLUMN_NAME = 'year'
 VALUE_COLUMN_NAME = 'val'
 
@@ -21,18 +21,16 @@ df = pd.read_csv(cvd_data_path)
 df = df[df.measure_name=='Deaths']
 df['country_code'] = df['location_name'].map(get_iso3_gbd)
 
-df = df[['location_name', 'country_code', 'year', 'val']]
+df = df[['location_name', 'country_code', 'year', 'Value']]
 df.columns = ['Country Name', 'Country Code', 'Year', 'IHD']
 
 
 year_cols = [str(i) for i in range(1960, 2023)]
 
-health_df = pd.read_csv(RAW_DATA_PATH+'/health_expenditure.csv')
-health_df = health_df.melt(id_vars=['Country Name', 'Country Code'], value_vars=year_cols, var_name='Year', value_name='HealthInd')
-health_df['Year'] = health_df['Year'].astype(int)
-health_df = health_df.drop(['Country Name'], axis=1)
-health_df = health_df.dropna()
-health_df.dropna()['Country Code'].nunique()
+health_df = pd.read_csv(f'{RAW_DATA_PATH}/oecd_healthSpending.csv')
+health_df.rename(columns={'LOCATION': 'Country Code', 'TIME': 'Year', 'Value': 'HealthInd'}, inplace=True)
+health_df.drop(columns=['INDICATOR', 'SUBJECT', 'MEASURE', 'FREQUENCY', 'Flag Codes'], inplace=True)
+health_df
 
 
 fat_df = pd.read_csv(DATA_PATH+'/daily_per_capita_fat_supply_final.csv')
@@ -58,7 +56,7 @@ mean_df = final_df.groupby(['Country Name', 'Country Code'])[['IHD', 'HealthInd'
 
 output_fig_path = OUTPUT_PATH + '/fig_bubble_plot_factors.pdf'
 bubble_plot_factors_and_rates(mean_df, x_col='Alcohol', y_col='HealthInd', size_col='Age', hue_col='IHD',
-                            x_label='Alcohol consumption (liters/day)', y_label='Health expenditure (\\% GDP)',
+                            x_label='Alcohol consumption (liters/day)', y_label='Health expenditure (USD per capita)',
                             size_label='Median population age', hue_label='Death rate (deaths per 100,000 habitants)',
                             country_col='Country Name',
                             title='Effect of alcohol consumption, health expenditure and median age on ischemic heart disease death rate, averaged from 1990 to 2019',
