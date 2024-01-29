@@ -10,7 +10,6 @@ from tueplots.constants.color import rgb
 
 from pathlib import Path
 # Add the parent directory to the sys.path (without this we cannot import constants or scripts)
-print(Path.cwd())
 sys.path.insert(0, str(Path.cwd()))
 
 from src.utils import get_iso3_gbd
@@ -118,21 +117,19 @@ from tueplots import figsizes
 from shap.plots import beeswarm
 import numpy as np
 import matplotlib.cm as cm
-from shap.plots.colors import red_blue
+from matplotlib.colors import LinearSegmentedColormap
 
-from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_squared_error, r2_score
-from sklearn.model_selection import train_test_split
+blue = rgb.tue_blue
+red = rgb.tue_red
+# make red a bit lighter, but not towards pink, less blue
+red = (red[0]*1.5, red[1] * 0.8, red[2] * 0.8)
+# Create a colormap
+cmap = LinearSegmentedColormap.from_list('blue_to_red', [blue, red])
 
-# Standardize the data
-scaler = StandardScaler()
-
-X_train_scaled = scaler.fit_transform(X_train)
-X_test_scaled = scaler.transform(X_test)
 
 plt.rcParams.update(bundles.icml2022(column="full", ncols=1, nrows=2))
-
-
+plt.figure()
+scaler = StandardScaler()
 X_train_scaled = pd.DataFrame(scaler.fit_transform(X_train), columns=X_train.columns)
 
 # Assuming best_model is your trained RandomForestRegressor from GridSearchCV
@@ -141,9 +138,12 @@ shap_values = explainer(X_train_scaled)
 
 beeswarm(shap_values, show=False, plot_size = figsizes.icml2022_full()['figure.figsize'], color_bar=False)
 
-plt.rcParams.update(bundles.icml2022(column="full", ncols=1, nrows=2))
 # ax.set_title('SHAP values summary')
 # Formatting the plot
+for fc in plt.gcf().get_children():
+    for fcc in fc.get_children():
+        if hasattr(fcc, "set_cmap"):
+            fcc.set_cmap(cmap)
 num_features = X_train_scaled.shape[1]
 feature_order = np.argsort(np.sum(np.abs(explainer.shap_values(X_train_scaled)), axis=0))
 plt.tick_params(
@@ -162,7 +162,7 @@ plt.title('SHAP values summary', fontsize=14)
 plt.gca().set_xlabel('SHAP value (impact on model output)')
 plt.grid(True, axis='x', linestyle='--', alpha=0.5)
        
-m = cm.ScalarMappable(cmap=red_blue)
+m = cm.ScalarMappable(cmap=cmap)
 m.set_array([0, 1])
 cb = plt.colorbar(m, ax=plt.gca(), ticks=[0, 1], aspect=20)
 cb.set_ticklabels(['Low', 'High'], fontsize=9)
@@ -170,6 +170,7 @@ cb.set_label('Feature Value', labelpad=0, fontsize=11)
 cb.ax.tick_params(length=0)
 cb.set_alpha(1)
 cb.outline.set_visible(False)
+
 plt.savefig(f'{OUTPUT_PATH}/fig_shap_values_summary.pdf')
 plt.savefig(f'{OUTPUT_PATH}/fig_shap_values_summary.jpg')
 
