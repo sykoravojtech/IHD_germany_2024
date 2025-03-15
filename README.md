@@ -36,6 +36,8 @@ https://docs.google.com/document/d/1u-LVvFSsDFmDl7H6Y-cFUUbPc1N2QNrFJSKC9aFDCZs/
   </ol>
 </details>
 
+![Paper](doc/IHD_germany_2024/DataLit_report_2024.pdf)
+
 <!-- <li>
       <a href="#description">Description</a>
       <ul>
